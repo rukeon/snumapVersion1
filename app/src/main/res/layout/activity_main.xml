@@ -15,21 +15,11 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             >
-
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/topbar"
                 android:scaleType="centerCrop"/>
-
-            <!--<Button-->
-            <!--android:layout_width="25dp"-->
-            <!--android:layout_height="25dp"-->
-            <!--android:layout_marginTop="5dp"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:background="@drawable/button_image"-->
-            <!--/>-->
 
         </RelativeLayout>
     </LinearLayout>
@@ -127,7 +117,6 @@
                             android:id="@+id/btn_menu"
                             android:layout_height="50dp"
                             android:layout_width="50dp"
-                            android:layout_weight="1"
                             android:background="@drawable/button_image_menu"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="0dp"
@@ -148,11 +137,22 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <WebView
-                            android:id="@+id/map_view"
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            />
+                            android:layout_height="match_parent">
+                            <WebView
+                                android:id="@+id/map_view"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                />
+
+                            <Button
+                                android:id="@+id/currentPostion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:text="현위치"/>
+                        </RelativeLayout>
 
                         <RelativeLayout
                             android:layout_width="fill_parent"

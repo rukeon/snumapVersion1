@@ -560,7 +560,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // 뒤로가기 버튼 컨트롤
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-        backPressCloseHandler.onBackPressed();
+        LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
+        if (list_menu.getVisibility() == View.VISIBLE)
+        {
+            list_menu.setVisibility(View.GONE);
+        } else {
+            //super.onBackPressed();
+            backPressCloseHandler.onBackPressed();
+        }
     }
 }
