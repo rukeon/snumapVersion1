@@ -327,7 +327,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         complexPreferences.commit();
 
                         Toast.makeText(MainActivity.this,
-                                "등록되었습니다. 메뉴->내 목록에서 확인가능합니다",
+                                "등록되었습니다. 메뉴->즐겨찾기에서 확인가능합니다",
                                 Toast.LENGTH_SHORT).show();
                         break;
 
