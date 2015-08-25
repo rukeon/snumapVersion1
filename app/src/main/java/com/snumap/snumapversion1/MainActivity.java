@@ -22,12 +22,21 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.kakao.kakaolink.KakaoLink;
+import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
+import com.kakao.util.KakaoParameterException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String URL = "file:///android_asset/leaflet/index.html";
+
+    // 카카오톡 관련
+    private KakaoLink kakaoLink;
+    private KakaoTalkLinkMessageBuilder kakaoTalkLinkMessageBuilder;
+    private final String imgSrcLink = "http://snumap.com/snumap/images/03.png"; // 전송시 딸려가는 이미지다.
 
     // SharedPreference 처리
     List<User> users;
@@ -83,6 +92,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // 카카오톡 인스턴스 생성
+        try {
+            kakaoLink = KakaoLink.getKakaoLink(getApplicationContext());
+            kakaoTalkLinkMessageBuilder = kakaoLink.createKakaoTalkLinkMessageBuilder();
+        } catch (KakaoParameterException e) {
+            e.getMessage();
+        }
 
         // sharedpreference 인스턴스 생성
         complexPreferences = ComplexPreferences.getComplexPreferences(this, "mypref", MODE_PRIVATE);
@@ -332,7 +349,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
-                        //No button clicked
+                        LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
+                        list_menu.setVisibility(View.VISIBLE);
                         break;
                 }
             }
@@ -414,21 +432,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        // 건물정보 클릭 이벤트 처리...
-        LinearLayout info = (LinearLayout) findViewById(R.id.info);
-        info.setOnClickListener(new View.OnClickListener() {
+        // 공유하기 클릭 이벤트 처리...
+        LinearLayout link = (LinearLayout) findViewById(R.id.link);
+        link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 아래의 4개 메뉴바 제거
                 LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
                 list_menu.setVisibility(View.GONE);
 
-//                Intent intent = new Intent(MainActivity.this , SubActivity.class);
-//                startActivity(intent);
+                // 카카오톡 전송을 위한 정보 가져오기
+                String user_search = search_result.get(0).get_id();
+                String buildingIndex = search_result.get(0).getName();
+
+                sendLink(imgSrcLink, buildingIndex);
             }
         }); // ... 여기까지(4가지 이벤트 처리)
+    }
 
-
+    // 카카오톡 전송관련
+    private void sendLink(String imgSrcLink, String index){
+        try {
+            kakaoTalkLinkMessageBuilder.addText("고고");
+            kakaoTalkLinkMessageBuilder.addImage(imgSrcLink, 269, 95);
+            kakaoTalkLinkMessageBuilder.addWebButton("웹으로 이동", "http://snumap.com/cmap/selectize/examples/dynamic.html" + index);
+            final String linkContents = kakaoTalkLinkMessageBuilder.build();
+            kakaoLink.sendMessage(linkContents, this);
+        } catch (KakaoParameterException e) {
+            e.getMessage();
+        }
     }
 
     private void addList() {
