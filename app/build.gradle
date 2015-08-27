@@ -25,4 +25,6 @@ dependencies {
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
     compile 'com.google.code.gson:gson:2.3'
     compile group: project.KAKAO_SDK_GROUP, name: 'kakaolink', version: project.KAKAO_SDK_VERSION
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
 }
