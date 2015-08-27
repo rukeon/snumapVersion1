@@ -81,10 +81,16 @@ public class FavoriteActivity extends AppCompatActivity {
         myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent goToMainintent = new Intent(FavoriteActivity.this, MainActivity.class);
-                String str = arItem.get(position).name.getName();
-                goToMainintent.putExtra("favorite", str);
-                startActivity(goToMainintent);
+                LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
+                if (list_menu.getVisibility() == View.VISIBLE)
+                {
+                    // do nothing
+                } else {
+                    Intent goToMainintent = new Intent(FavoriteActivity.this, MainActivity.class);
+                    String str = arItem.get(position).name.getName();
+                    goToMainintent.putExtra("favorite", str);
+                    startActivity(goToMainintent);
+                }
             }
         });
 
@@ -305,8 +311,7 @@ public class FavoriteActivity extends AppCompatActivity {
                 int colorId = buttonColor.getColor();
                 Log.e("색깔이 무엇일까?date  ", String.valueOf(colorId));  //-5054501
 
-                if (colorId == -5054501)
-                {
+                if (colorId == -5054501) {
 
                 } else {
                     orderByDate.setBackgroundColor(Color.parseColor("#b2dfdb"));
@@ -327,7 +332,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
                     // 리스트 뷰에 넣을 LIST 생성
                     MyItemForListView mi;
-                    for(User item: complexObject.users){
+                    for (User item : complexObject.users) {
                         mi = new MyItemForListView(R.drawable.pin, item, R.drawable.arrow);
                         arItem.add(mi);
                     }
@@ -379,8 +384,7 @@ public class FavoriteActivity extends AppCompatActivity {
                 int colorId = buttonColor.getColor();
                 Log.e("색깔이 무엇일까?name  ", String.valueOf(colorId)); //-1 :흰색
 
-                if (colorId == -5054501)
-                {
+                if (colorId == -5054501) {
 
                 } else {
                     orderByName.setBackgroundColor(Color.parseColor("#b2dfdb"));
@@ -401,7 +405,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
                     // 리스트 뷰에 넣을 LIST 생성
                     MyItemForListView mi;
-                    for(User item: complexObject.users){
+                    for (User item : complexObject.users) {
                         mi = new MyItemForListView(R.drawable.pin, item, R.drawable.arrow);
                         arItem.add(mi);
                     }

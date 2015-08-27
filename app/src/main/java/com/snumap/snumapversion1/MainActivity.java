@@ -360,7 +360,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        // 출발지 클릭 이벤트 처리
+        // 출발지 클릭 이벤트 처리ㅡ
         LinearLayout start = (LinearLayout) findViewById(R.id.start_position);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
