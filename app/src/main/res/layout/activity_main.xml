@@ -146,12 +146,12 @@
                                 android:layout_height="fill_parent"
                                 />
 
-                            <Button
+                            <ImageView
                                 android:id="@+id/currentPostion"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:text="현위치"/>
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/currentposbutton"
+                                android:clickable="true" />
                         </RelativeLayout>
 
                         <RelativeLayout

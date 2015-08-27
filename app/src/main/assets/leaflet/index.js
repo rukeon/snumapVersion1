@@ -35,7 +35,7 @@ function init() {
     rc.setMaxBounds();
 
     // set the view on a marker ... // 처음 지도뷰가 생성될 때 포인트 세팅 및 zoom 세팅
-    map.setView(rc.unproject([2500, 1250]), 3);
+    map.setView(rc.unproject([2500, 1250]), 1);
 
     // set marker at the image bound edges
     var layerBounds = L.layerGroup([
@@ -182,10 +182,7 @@ function init() {
     // the tile layer containing the image generated with gdal2tiles --leaflet ...
     L.tileLayer('./tiles/{z}/{x}/{y}.png', {
         noWrap: true,
-        attribution: 'Map <a href="https://commons.wikimedia.org/wiki/'+
-            'File:Karta_%C3%B6ver_Europa,_1672_-_Skoklosters_slott_-_95177.tif">'+
-            'Karta över Europa, 1672 - Skoklosters</a> under '+
-            '<a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>',
+        attribution: '',
     }).addTo(map);
 
 
@@ -255,3 +252,8 @@ var moveLeaflet = function(value) {
     }
 }
 
+var removeMarker = function() {
+    return function() {
+        map.removeLayer(searchMarker);
+    }
+}

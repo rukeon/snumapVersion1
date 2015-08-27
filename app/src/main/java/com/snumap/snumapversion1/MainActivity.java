@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -32,6 +33,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String URL = "file:///android_asset/leaflet/index.html";
+
+    //현재위치 관련
+    ImageView currentPostion;
+    GPSTracker gps;
 
     // 카카오톡 관련
     private KakaoLink kakaoLink;
@@ -89,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 현재위치 관련
+        currentPostion = (ImageView) findViewById(R.id.currentPostion);
+
         // 카카오톡 인스턴스 생성
         try {
             kakaoLink = KakaoLink.getKakaoLink(getApplicationContext());
@@ -118,12 +126,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerView = (View)findViewById(R.id.drawer);
 
         menu = (Button) findViewById(R.id.btn_menu);
-        menu.setOnClickListener(new View.OnClickListener(){
+        menu.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 drawerLayout.openDrawer(drawerView);
-            }});
+            }
+        });
 
         drawerLayout.setDrawerListener(myDrawerListener);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -149,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerList.setAdapter(adapter);
 
         // 건물검색, 길찾기, 즐겨찾기, 설정의 항목들 클릭 시 발생 이벤트 처리
-        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent,
@@ -157,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 SlidingListData data = adapter.getmSlidingListData().get(position);
                 String activity = data.getmActivity().toString();
 
-                switch(activity) {
+                switch (activity) {
                     case "건물검색":
                         drawerLayout.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
 
@@ -263,6 +272,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
                 list_menu.setVisibility(View.VISIBLE);
+            }
+        });
+
+        currentPostion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentPostion.isActivated())
+                {
+                    mapView.setWebViewClient(new WebViewClient() {
+                        @Override
+                        public void onPageFinished(WebView view, String url) {
+                            // TODO Auto-generated method stub
+                            super.onPageFinished(view, url);
+                            view.loadUrl("javascript:moveLeaflet()();");
+                        }
+                    });
+                    //load webpage from assets
+                    mapView.loadUrl(URL);
+                } else {
+                    gps = new GPSTracker(MainActivity.this);
+
+                    if (gps.canGetLocation()) {
+                        final double latitude = gps.getLatitude();
+                        final double longitude = gps.getLongitude();
+
+                        mapView.setWebViewClient(new WebViewClient() {
+                            @Override
+                            public void onPageFinished(WebView view, String url) {
+                                // TODO Auto-generated method stub
+                                super.onPageFinished(view, url);
+
+                                view.loadUrl("javascript:moveLeaflet([" + String.valueOf(latitude) + "," + String.valueOf(longitude) + "])();");
+                            }
+                        });
+                        //load webpage from assets
+                        mapView.loadUrl(URL);
+                    } else {
+                        gps.showSettingsAlert();
+                    }
+                }
+                currentPostion.setActivated(!currentPostion.isActivated());
             }
         });
 
