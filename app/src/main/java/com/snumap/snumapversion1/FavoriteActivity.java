@@ -6,11 +6,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class FavoriteActivity extends AppCompatActivity {
+public class FavoriteActivity extends AppCompatActivity implements View.OnClickListener {
     ComplexPreferences complexPreferences;
     ListUserPref complexObject;
 
@@ -34,11 +38,101 @@ public class FavoriteActivity extends AppCompatActivity {
     Button orderByDate;
     Button orderByName;
 
+    // 드르워 레이아웃 처리
+    DrawerLayout drawerLayoutFav;
+    View drawerViewFav;
+    ListView drawerListFav;
+    Button favMenuBtn;
+
+    // 슬라이딩 메뉴 아랫부분 클릭 시 close되게
+    FrameLayout closeFav;
+
+    private String[] menu_name = {
+            "건물검색", "길찾기", "즐겨찾기", "설정"};
+    private  Integer image_id[] = {R.drawable.ic_search,
+            R.drawable.ic_directions_walk,
+            R.drawable.ic_archive,
+            R.drawable.ic_settings };
+
+    // 메뉴 버튼 클릭 시 어댑터
+    Customlistadapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
 
+        // Drawerlayout 부분
+        drawerLayoutFav = (DrawerLayout)findViewById(R.id.drawer_layoutFav);
+        drawerViewFav = (View)findViewById(R.id.drawerFav);
+
+        favMenuBtn = (Button) findViewById(R.id.favMenuBtn);
+        favMenuBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                drawerLayoutFav.openDrawer(drawerViewFav);
+            }
+        });
+
+        drawerLayoutFav.setDrawerListener(myDrawerListener);
+        drawerLayoutFav.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+        closeFav = (FrameLayout) findViewById(R.id.frameForCloseFav);
+
+        drawerViewFav.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+                return true;
+            }
+        });
+
+        adapter = new Customlistadapter(this);
+
+        for(int i = 0; i < menu_name.length; ++i)
+        {
+            adapter.addItem(image_id[i], menu_name[i]);
+        }
+
+        drawerListFav = (ListView)findViewById(R.id.drawerlistFav);
+        drawerListFav.setAdapter(adapter);
+
+        // 건물검색, 길찾기, 즐겨찾기, 설정의 항목들 클릭 시 발생 이벤트 처리
+        drawerListFav.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent,
+                                    View view, int position, long id) {
+                SlidingListData data = adapter.getmSlidingListData().get(position);
+                String activity = data.getmActivity().toString();
+
+                switch (activity) {
+                    case "건물검색":
+                        Intent goToMainIntent =
+                                new Intent(FavoriteActivity.this, MainActivity.class);
+                        startActivity(goToMainIntent);
+                        break;
+
+                    case "즐겨찾기":
+                        drawerLayoutFav.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
+                        break;
+
+                    case "설정":
+                        Intent goToSettingIntent =
+                                new Intent(FavoriteActivity.this, SettingActivity.class);
+                        startActivity(goToSettingIntent);
+                        break;
+                }
+            }
+        });
+
+        // 드로워 레이아웃 옆 색깔 투명으로 만들기
+        drawerLayoutFav.setScrimColor(getResources().getColor(android.R.color.transparent));
+        closeFav.setOnClickListener(this);
+
+
+        // 본 내용의 list 부분 시작...
         arItem = new ArrayList<MyItemForListView>();
 
         complexPreferences = ComplexPreferences.getComplexPreferences(this, "mypref", MODE_PRIVATE);
@@ -50,6 +144,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
         orderByDate = (Button) findViewById(R.id.orderByDate);
         orderByName = (Button) findViewById(R.id.orderByName);
+
 
         if (complexObject != null) {
             // 시간순 정렬을 위한....
@@ -97,8 +192,6 @@ public class FavoriteActivity extends AppCompatActivity {
         myList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
-//                Log.v("long clicked", "pos: " + pos);
-//                String str = arItem.get(pos).name + "를 주문합니다.";
                 final int posForDialog = pos;
 
                 new AlertDialog.Builder(FavoriteActivity.this)
@@ -170,8 +263,6 @@ public class FavoriteActivity extends AppCompatActivity {
                 myList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                     public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                                    int pos, long id) {
-//                        Log.v("long clicked", "pos: " + pos);
-//                        String str = arItem.get(pos).name + "를 주문합니다.";
                         final int posForDialog = pos;
 
                         new AlertDialog.Builder(FavoriteActivity.this)
@@ -201,36 +292,15 @@ public class FavoriteActivity extends AppCompatActivity {
         deleteTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-
                 ArrayList<Integer> forDelte = myAdapterForDelete.getBeDelete();
-
-//                for(int i=0; i < arItem.size(); ++i)
-//                {
-//                    String str = arItem.get(i).name;
-//                    Log.e("현재 arItem의 상태다: ", str);
-//                }
-
                 Collections.sort(forDelte);
-
-//                for (int k : forDelte)
-//                {
-//                    Log.e("forDelte의 상태:   ", String.valueOf(k));
-//                }
 
                 for (int i = forDelte.size() - 1; i >= 0; --i) {
                     int posForDialog = forDelte.get(i);
-
-//                    Log.e("어떤 숫자가 들어가 있을까? ", String.valueOf(posForDialog));
-
                     if (posForDialog != ListView.INVALID_POSITION) {
                         String str = arItem.get(posForDialog).name.getName();
-//                        complexPreferences.delete(complexObject, new User(str));
-//                        complexPreferences.commit();
 
                         arItem.remove(posForDialog);
-
-//                        MyItemForListView mi;
-//                        mi = new MyItemForListView(R.drawable.pin, str, R.drawable.arrow);
                     }
 
                     final List<User> users = new ArrayList<User>();
@@ -246,15 +316,6 @@ public class FavoriteActivity extends AppCompatActivity {
                     complexPreferences.putObject("list", complexObject);
                     complexPreferences.commit();
 
-//                    complexObject.setUsers(arItem);
-//                    arItem = new ArrayList<MyItemForListView>();
-//                    // 리스트 뷰에 넣을 LIST 생성
-//                    MyItemForListView mi;
-//                    for(User item: complexObject.users){
-//                        mi = new MyItemForListView(R.drawable.pin, item.getName(), R.drawable.arrow);
-//                        arItem.add(mi);
-//                    }
-//
                     myList.clearChoices();
                     myAdapterForDelete.notifyDataSetChanged();
 
@@ -273,8 +334,6 @@ public class FavoriteActivity extends AppCompatActivity {
                     myList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                         public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                                        int pos, long id) {
-//                            Log.v("long clicked", "pos: " + pos);
-//                            String str = arItem.get(pos).name + "를 주문합니다.";
                             final int posForDialog = pos;
 
                             new AlertDialog.Builder(FavoriteActivity.this)
@@ -298,8 +357,6 @@ public class FavoriteActivity extends AppCompatActivity {
                             return true;
                         }
                     });
-
-
                 }
             }
         });
@@ -346,8 +403,6 @@ public class FavoriteActivity extends AppCompatActivity {
                     myList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                         public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                                        int pos, long id) {
-//                Log.v("long clicked", "pos: " + pos);
-//                String str = arItem.get(pos).name + "를 주문합니다.";
                             final int posForDialog = pos;
 
                             new AlertDialog.Builder(FavoriteActivity.this)
@@ -419,8 +474,6 @@ public class FavoriteActivity extends AppCompatActivity {
                     myList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                         public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                                        int pos, long id) {
-//                Log.v("long clicked", "pos: " + pos);
-//                String str = arItem.get(pos).name + "를 주문합니다.";
                             final int posForDialog = pos;
 
                             new AlertDialog.Builder(FavoriteActivity.this)
@@ -449,4 +502,28 @@ public class FavoriteActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.frameForCloseFav:
+                drawerLayoutFav.closeDrawer(Gravity.RIGHT);
+                break;
+        }
+    }
+
+    DrawerLayout.DrawerListener myDrawerListener = new DrawerLayout.DrawerListener(){
+        @Override
+        public void onDrawerClosed(View drawerView) {
+        }
+        @Override
+        public void onDrawerOpened(View drawerView) {
+        }
+        @Override
+        public void onDrawerSlide(View drawerView, float slideOffset) {
+        }
+        @Override
+        public void onDrawerStateChanged(int newState) {
+        }
+    };
 }

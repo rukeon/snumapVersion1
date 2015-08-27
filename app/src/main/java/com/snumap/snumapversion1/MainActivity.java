@@ -182,10 +182,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         myAutoComplete.setVisibility(View.VISIBLE);
                         myAutoComplete.setText("");
 
-//                        // 맵뷰의 상태를 main 상태로 다시 원위치 시킨다.
-//                        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.459882, 126.951905), true);
-//                        mapView.setZoomLevel(3, true);
-//                        mapView.removeAllPOIItems();
+                        mapView.setWebViewClient(new WebViewClient() {
+                            @Override
+                            public void onPageFinished(WebView view, String url) {
+                                // TODO Auto-generated method stub
+                                super.onPageFinished(view, url);
+                                view.loadUrl("javascript:removeMarker()();");
+                            }
+                        });
+                        //load webpage from assets
+                        mapView.loadUrl(URL);
                         break;
 
                     case "즐겨찾기":
@@ -285,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         public void onPageFinished(WebView view, String url) {
                             // TODO Auto-generated method stub
                             super.onPageFinished(view, url);
-                            view.loadUrl("javascript:moveLeaflet()();");
+                            view.loadUrl("javascript:removeMarker()();");
                         }
                     });
                     //load webpage from assets
@@ -315,7 +321,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 currentPostion.setActivated(!currentPostion.isActivated());
             }
         });
-
 
         // 즐겨찾기에서 클릭 해서 넘어왔을 경우의 activity 처리
         Intent favIntent = getIntent();
