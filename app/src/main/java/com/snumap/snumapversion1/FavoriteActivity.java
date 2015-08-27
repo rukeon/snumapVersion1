@@ -71,7 +71,13 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onClick(View arg0) {
-                drawerLayoutFav.openDrawer(drawerViewFav);
+                if (favMenuBtn.isActivated())
+                {
+                    drawerLayoutFav.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
+                } else {
+                    drawerLayoutFav.openDrawer(drawerViewFav);
+                }
+                favMenuBtn.setActivated(!favMenuBtn.isActivated());
             }
         });
 

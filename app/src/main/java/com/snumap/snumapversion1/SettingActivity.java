@@ -50,7 +50,13 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onClick(View arg0) {
-                drawerLayoutSet.openDrawer(drawerViewSet);
+                if (SetMenuBtn.isActivated())
+                {
+                    drawerLayoutSet.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
+                } else {
+                    drawerLayoutSet.openDrawer(drawerViewSet);
+                }
+                SetMenuBtn.setActivated(!SetMenuBtn.isActivated());
             }
         });
 

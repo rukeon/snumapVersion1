@@ -130,7 +130,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onClick(View arg0) {
-                drawerLayout.openDrawer(drawerView);
+                if (menu.isActivated())
+                {
+                    drawerLayout.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
+                } else {
+                    drawerLayout.openDrawer(drawerView);
+                }
+                menu.setActivated(!menu.isActivated());
             }
         });
 
