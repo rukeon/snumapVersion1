@@ -200,6 +200,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mapView.loadUrl(URL);
                         break;
 
+                    case "길찾기":
+                        Intent goToSearchRouteIntent =
+                                new Intent(MainActivity.this, SearchRouteActivity.class);
+                        startActivity(goToSearchRouteIntent);
+                        break;
+
                     case "즐겨찾기":
                         drawerLayout.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
 
