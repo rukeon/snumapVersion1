@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity"
     android:orientation="vertical">
 
@@ -110,12 +110,22 @@
                     android:layout_height="fill_parent"
                     android:orientation="vertical"
                 >
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="9">
 
-                    </LinearLayout>
+                        <android.support.design.widget.FloatingActionButton
+                            android:id="@+id/fab"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|bottom"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_done"
+                            app:fabSize="normal"
+                            />
+
+                    </FrameLayout>
                     <TextView
                         android:id="@+id/txtDelete"
                         android:layout_width="match_parent"
