@@ -10,11 +10,11 @@ import android.widget.ArrayAdapter;
 /**
  * Created by rukeon01 on 2015-07-15.
  */
-public class SRCustomAutoCompleteTextChangedListener implements TextWatcher {
+public class SRCustomAutoCompleteTextChangedListener2 implements TextWatcher {
     public static final String TAG = "CustomAutoCompleteTextChangedListener.java";
     Context context;
 
-    public SRCustomAutoCompleteTextChangedListener(Context context){
+    public SRCustomAutoCompleteTextChangedListener2(Context context){
         this.context = context;
     }
 
@@ -43,31 +43,31 @@ public class SRCustomAutoCompleteTextChangedListener implements TextWatcher {
 
         SearchRouteActivity searchActivity = ((SearchRouteActivity) context);
         // setOnItemClickListener와의 겹치는 것 제한하기 위한 코드
-        if (searchActivity.myAutoComplete.isPerformingCompletion()) {
+        if (searchActivity.myAutoComplete2.isPerformingCompletion()) {
             // An item has been selected from the list. Ignore.
             return;
         }
 
         // query the database based on the user input
-        searchActivity.item = searchActivity.db.read(userInput.toString());
+        searchActivity.item2 = searchActivity.db.read(userInput.toString());
 
-        if (searchActivity.item.size() == 0 ) {
+        if (searchActivity.item2.size() == 0 ) {
             Log.e("여기로 들어오나?", "real?");
             for (int i = 0; i < searchActivity.searchList.size(); i++) {
                 String searchData = searchActivity.searchList.get(i).toString();
                 String keyWord = userInput.toString();
                 boolean isData = SoundSearch.matchString(searchData, keyWord); //검색할 대상 , 검색 키워드로  검색키워드가 검색대상에 있으면  true를 리턴해준다
                 if (isData) {
-                    searchActivity.item.add(searchData);//검색대상에 있으면 새로운 리스트를 만들어서 이름을 애드해준다
+                    searchActivity.item2.add(searchData);//검색대상에 있으면 새로운 리스트를 만들어서 이름을 애드해준다
                 }
             }
         }
         // update the adapater
-        searchActivity.myAdapter.notifyDataSetChanged();
-        searchActivity.myAdapter = new ArrayAdapter<String>(searchActivity, R.layout.autocomplete_list_row, searchActivity.item);
-        searchActivity.myAutoComplete.setAdapter(searchActivity.myAdapter);
+        searchActivity.myAdapter2.notifyDataSetChanged();
+        searchActivity.myAdapter2 = new ArrayAdapter<String>(searchActivity, R.layout.autocomplete_list_row, searchActivity.item2);
+        searchActivity.myAutoComplete2.setAdapter(searchActivity.myAdapter2);
 
-        searchActivity.isAutoCompleteExist1 = false;
+        searchActivity.isAutoCompleteExist2 = false;
         searchActivity.fab.setVisibility(View.GONE);
     }
 }

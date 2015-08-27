@@ -26,17 +26,23 @@ public class SearchRouteActivity extends AppCompatActivity {
     public MyDatabase db;
 
     CustomAutoCompleteView myAutoComplete;
+    CustomAutoCompleteView myAutoComplete2;
 
     // adapter for auto-complete
     ArrayAdapter<String> myAdapter;
+    ArrayAdapter<String> myAdapter2;
 
     // just to add some initial value
     ArrayList<String> item = new ArrayList<String>();
+    ArrayList<String> item2 = new ArrayList<String>();
 
     // 초성 검색을 위한 arrayList
     ArrayList<String> searchList = new ArrayList<String>();
 
     ArrayList<DataSet> search_result = new ArrayList<DataSet>();
+
+    boolean isAutoCompleteExist1 = false;
+    boolean isAutoCompleteExist2 = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +58,19 @@ public class SearchRouteActivity extends AppCompatActivity {
 
         // autocompletetextview is in activity_main.xml
         myAutoComplete = (CustomAutoCompleteView) findViewById(R.id.myAutoCompleteSR);
+        myAutoComplete2 = (CustomAutoCompleteView) findViewById(R.id.myAutoCompleteSR2);
 
         // add the listener so it will tries to suggest while the user types
         myAutoComplete.addTextChangedListener(new SRCustomAutoCompleteTextChangedListener(this));
+        myAutoComplete2.addTextChangedListener(new SRCustomAutoCompleteTextChangedListener2(this));
 
         // set our adapter
         myAdapter = new ArrayAdapter<String>(this, R.layout.autocomplete_list_row, item);
         myAutoComplete.setAdapter(myAdapter); //....여기까지(디비)
+
+        // set our adapter
+        myAdapter2 = new ArrayAdapter<String>(this, R.layout.autocomplete_list_row, item2);
+        myAutoComplete2.setAdapter(myAdapter2); //....여기까지(디비)
 
         // 자동검색 바 클릭시 검색어 없애기
         myAutoComplete.setOnClickListener(new View.OnClickListener() {
@@ -69,13 +81,43 @@ public class SearchRouteActivity extends AppCompatActivity {
             }
         });
 
+        // 자동검색 바 클릭시 검색어 없애기
+        myAutoComplete2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myAutoComplete2.setText("");
+                showKeyboard2();
+            }
+        });
+
         // 자동 검색 리스트에서 검색어 클릭 시 해당 위치로 이동
         myAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                isAutoCompleteExist1 = true;
                 hideKeyboard();
+
+                if (isAutoCompleteExist2)
+                {
+                    fab.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        // 자동 검색 리스트에서 검색어 클릭 시 해당 위치로 이동
+        myAutoComplete2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                isAutoCompleteExist2 = true;
+                hideKeyboard();
+                if (isAutoCompleteExist1)
+                {
+                    fab.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -101,10 +143,15 @@ public class SearchRouteActivity extends AppCompatActivity {
     private void init(){
         imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         myAutoComplete = (CustomAutoCompleteView) findViewById(R.id.myAutoCompleteSR);
+        myAutoComplete2 = (CustomAutoCompleteView) findViewById(R.id.myAutoCompleteSR2);
     }
 
     private void showKeyboard(){
         imm.showSoftInput(myAutoComplete, 0);
+    }
+
+    private void showKeyboard2(){
+        imm.showSoftInput(myAutoComplete2, 0);
     }
 
     private void hideKeyboard(){
