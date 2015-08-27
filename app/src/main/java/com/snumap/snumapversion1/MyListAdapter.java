@@ -77,6 +77,7 @@ class MyListAdapter extends BaseAdapter {
 //                Toast.makeText(maincon, str, Toast.LENGTH_SHORT).show();
 //                customImg.setBackgroundResource(R.drawable.select);
 
+
             }
         });
 

@@ -6,4 +6,7 @@
     <string name="title_activity_intro">IntroActivity</string>
     <string name="title_activity_favorite">FavoriteActivity</string>
     <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_how_to_use">HowToUseActivity</string>
+    <string name="title_activity_fa_q">FaQActivity</string>
+    <string name="title_activity_ask">AskActivity</string>
 </resources>

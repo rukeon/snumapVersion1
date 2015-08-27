@@ -2,6 +2,7 @@ package com.snumap.snumapversion1;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -50,7 +51,7 @@ public class FavoriteActivity extends AppCompatActivity {
         orderByDate = (Button) findViewById(R.id.orderByDate);
         orderByName = (Button) findViewById(R.id.orderByName);
 
-        if (complexObject.users != null) {
+        if (complexObject != null) {
             // 시간순 정렬을 위한....
             List<User> sortedList;
             sortedList = complexObject.users;
@@ -63,9 +64,12 @@ public class FavoriteActivity extends AppCompatActivity {
 
         // 리스트 뷰에 넣을 LIST 생성
         MyItemForListView mi;
-        for(User item: complexObject.users){
-            mi = new MyItemForListView(R.drawable.pin, item, R.drawable.arrow);
-            arItem.add(mi);
+        if (complexObject != null)
+        {
+            for(User item: complexObject.users){
+                mi = new MyItemForListView(R.drawable.pin, item, R.drawable.arrow);
+                arItem.add(mi);
+            }
         }
 
         final MyListAdapter myAdapter = new MyListAdapter(FavoriteActivity.this, R.layout.widget_icontext, arItem);
@@ -73,6 +77,16 @@ public class FavoriteActivity extends AppCompatActivity {
         final ListView myList;
         myList = (ListView) findViewById(R.id.list);
         myList.setAdapter(myAdapter);
+
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent goToMainintent = new Intent(FavoriteActivity.this, MainActivity.class);
+                String str = arItem.get(position).name.getName();
+                goToMainintent.putExtra("favorite", str);
+                startActivity(goToMainintent);
+            }
+        });
 
         myList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
