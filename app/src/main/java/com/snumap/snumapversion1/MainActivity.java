@@ -201,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
 
                     case "길찾기":
+                        drawerLayout.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
                         Intent goToSearchRouteIntent =
                                 new Intent(MainActivity.this, SearchRouteActivity.class);
                         startActivity(goToSearchRouteIntent);

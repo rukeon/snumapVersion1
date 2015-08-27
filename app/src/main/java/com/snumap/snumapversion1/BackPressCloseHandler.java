@@ -24,6 +24,7 @@ public class BackPressCloseHandler {
             return;
         }
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+//            Log.e("여기지?", "왜 종료가 안되냐?");
             activity.finish();
             toast.cancel();
         }

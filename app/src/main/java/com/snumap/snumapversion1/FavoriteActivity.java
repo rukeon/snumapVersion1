@@ -117,6 +117,7 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                     case "건물검색":
                         Intent goToMainIntent =
                                 new Intent(FavoriteActivity.this, MainActivity.class);
+                        goToMainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(goToMainIntent);
                         break;
 
@@ -188,6 +189,7 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                     // do nothing
                 } else {
                     Intent goToMainintent = new Intent(FavoriteActivity.this, MainActivity.class);
+                    goToMainintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     String str = arItem.get(position).name.getName();
                     goToMainintent.putExtra("favorite", str);
                     startActivity(goToMainintent);

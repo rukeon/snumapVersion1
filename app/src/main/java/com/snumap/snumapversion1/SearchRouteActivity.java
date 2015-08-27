@@ -1,6 +1,7 @@
 package com.snumap.snumapversion1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -44,10 +44,24 @@ public class SearchRouteActivity extends AppCompatActivity {
     boolean isAutoCompleteExist1 = false;
     boolean isAutoCompleteExist2 = false;
 
+//    // 뒤로가기 컨트롤
+//    BackPressCloseHandler backPressCloseHandler;
+//    Intent mIntent;
+//    String previousActivity = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_route);
+
+//        backPressCloseHandler = new BackPressCloseHandler(SearchRouteActivity.this);
+//
+//        mIntent = getIntent();
+//        Bundle b = mIntent.getExtras();
+//
+//        if(b != null) {
+//            previousActivity = mIntent.getStringExtra("FROM_ACTIVITY");
+//        }
 
         // 키보드 관리를 위한 시작, 아래 함수 있다.
         init();
@@ -128,10 +142,12 @@ public class SearchRouteActivity extends AppCompatActivity {
         String text = "최근 검색기록 <font color='red'>삭제</font>";
         txtDelete.setText(Html.fromHtml(text), TextView.BufferType.SPANNABLE);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        txtDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "FAB Clicked", Toast.LENGTH_SHORT).show();
+                Intent deleteRoute = new Intent(SearchRouteActivity.this, DeleteRecentSearchActivity.class);
+                startActivity(deleteRoute);
+                overridePendingTransition(R.anim.slide_up_info, R.anim.no_change);
             }
         });
     }
@@ -158,4 +174,9 @@ public class SearchRouteActivity extends AppCompatActivity {
         InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        backPressCloseHandler.onBackPressed();
+//    }
 }

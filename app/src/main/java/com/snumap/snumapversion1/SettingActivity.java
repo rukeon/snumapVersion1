@@ -96,6 +96,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                     case "건물검색":
                         Intent goToMainIntent =
                                 new Intent(SettingActivity.this, MainActivity.class);
+                        goToMainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(goToMainIntent);
                         break;
 
