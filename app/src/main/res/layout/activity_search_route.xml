@@ -115,6 +115,15 @@
                         android:layout_height="0dp"
                         android:layout_weight="9">
 
+                        <!--리스트 뷰가 들어가는 부분-->
+                        <ListView
+                            android:id="@+id/list"
+                            android:background="#ffffff"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:dividerHeight="0.1dp"
+                            android:divider="#A5000000"/>
+
                         <android.support.design.widget.FloatingActionButton
                             android:id="@+id/fab"
                             android:layout_width="wrap_content"

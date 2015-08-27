@@ -29,7 +29,6 @@ public class SearchRouteActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Your FAB click action here...
                 Toast.makeText(getBaseContext(), "FAB Clicked", Toast.LENGTH_SHORT).show();
             }
         });
