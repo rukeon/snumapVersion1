@@ -5,6 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.snumap.snumapversion1.Model.RouteModel;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 public class ShowRouteActivity extends AppCompatActivity {
     Intent mIntent;
     String from;
@@ -16,10 +22,16 @@ public class ShowRouteActivity extends AppCompatActivity {
     // db 처리하는 부분
     public MyDatabase db;
 
+    private RouteService routeService;
+    private String latitude;
+    private String longitude;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_route);
+
+        routeService = new RouteService();
 
         // 디비 처리 하는 부분 시작
         db = new MyDatabase(this);
@@ -42,7 +54,23 @@ public class ShowRouteActivity extends AppCompatActivity {
         String idxFrom = resultFrom.getName();
         String idxTo = resultTo.getName();
 
-        fromtxt.setText(idxFrom);
-        totxt.setText(idxTo);
+//        fromtxt.setText(idxFrom);
+//        totxt.setText(idxTo);
+
+        routeService.getRouteApi().getRoute(idxFrom, idxTo, new Callback<RouteModel>() {
+            @Override
+            public void success(RouteModel routeModel, Response response) {
+                latitude = routeModel.getLatitude();
+                longitude = routeModel.getLongitude();
+
+                fromtxt.setText(latitude);
+                totxt.setText(longitude);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
 }
