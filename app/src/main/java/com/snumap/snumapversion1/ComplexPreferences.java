@@ -2,7 +2,6 @@ package com.snumap.snumapversion1;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -10,7 +9,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 
 public class ComplexPreferences {
-
 	private static ComplexPreferences complexPreferences;
 	private Context context;
 	private SharedPreferences preferences;
@@ -24,7 +22,6 @@ public class ComplexPreferences {
 		if (namePreferences == null || namePreferences.equals("")) {
 			namePreferences = "complex_preferences";
 		}
-		Log.e("이건 null이다", context.toString());
 		preferences = context.getSharedPreferences(namePreferences, mode);
 		editor = preferences.edit();
 	}
@@ -36,7 +33,6 @@ public class ComplexPreferences {
 			complexPreferences = new ComplexPreferences(context,
 					namePreferences, mode);
 		}
-
 		return complexPreferences;
 	}
 

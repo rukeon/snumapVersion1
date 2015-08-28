@@ -122,7 +122,20 @@
                         android:layout_marginRight="14dp"
                         android:layout_marginLeft="14dp"
                         android:dividerHeight="7dp"
-                        android:divider="#dff6f9"/>
+                        android:divider="#dff6f9"
+                        android:visibility="visible"/>
+
+                    <TextView
+                        android:id="@+id/txtForNothingExist"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="12"
+                        android:visibility="gone"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:text="즐겨찾기 기록이 없습니다"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="10dp"/>
 
                     <!--아래의 삭제 버튼-->
                     <LinearLayout

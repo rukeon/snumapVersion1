@@ -154,7 +154,6 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
         orderByDate = (Button) findViewById(R.id.orderByDate);
         orderByName = (Button) findViewById(R.id.orderByName);
 
-
         if (complexObject != null) {
             // 시간순 정렬을 위한....
             List<User> sortedList;
@@ -180,6 +179,7 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
 
         final ListView myList;
         myList = (ListView) findViewById(R.id.list);
+        myList.setEmptyView(findViewById(R.id.txtForNothingExist));
         myList.setAdapter(myAdapter);
 
         myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

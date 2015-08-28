@@ -12,10 +12,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchRouteActivity extends AppCompatActivity {
+    // SharedPreference 처리
+    List<UserSearch> userSearch;
+    ListUserSearchPref complexObject;
+    ComplexPreferences complexPreferences;
+
     TextView txtDelete;
     Button btnChange;
     FloatingActionButton fab;
@@ -61,6 +68,9 @@ public class SearchRouteActivity extends AppCompatActivity {
             from = mIntent.getStringExtra("FROM");
             to = mIntent.getStringExtra("TO");
         }
+
+        // sharedpreference 싱글톤으로 가져오기
+        complexPreferences = ComplexPreferences.getComplexPreferences(this, "mypref", MODE_PRIVATE);
 
         // 키보드 관리를 위한 시작, 아래 함수 있다.
         init();
@@ -172,6 +182,29 @@ public class SearchRouteActivity extends AppCompatActivity {
                 String from = myAutoComplete.getText().toString();
                 String to = myAutoComplete2.getText().toString();
 
+                complexObject = complexPreferences.getObject("listForSearch", ListUserSearchPref.class); // null일수 있다.
+                UserSearch recentSearch = new UserSearch(from, to);
+
+                // 최근검색에 등록
+                if ((complexObject == null)) {
+                    userSearch = new ArrayList<UserSearch>();
+                    complexObject = new ListUserSearchPref();
+                } else {
+                    userSearch = complexObject.getUserSearch();
+                } //...가져오기
+
+                if (complexObject.isExist(recentSearch)) {
+                    Toast.makeText(SearchRouteActivity.this, "이미 존재합니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    userSearch.add(recentSearch);
+                    complexObject.setUserSearch(userSearch);
+                }
+
+                complexPreferences.putObject("listForSearch", complexObject);
+                complexPreferences.commit();
+
+                // 다음 activity로 gogo
                 Intent goToShowRoute = new Intent(SearchRouteActivity.this, ShowRouteActivity.class);
                 goToShowRoute.putExtra("FROM", from);
                 goToShowRoute.putExtra("TO", to);

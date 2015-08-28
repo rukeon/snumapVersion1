@@ -27,7 +27,8 @@ public class ListUserPref {
 
     public void deleteUser(User user) {
         int result = findByName(user);
-        this.users.remove(result);
+        if(result != -1)
+            this.users.remove(result);
     }
 
     private int findByName(User user) {
