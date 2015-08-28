@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,8 @@ public class SearchRouteActivity extends AppCompatActivity {
     List<UserSearch> userSearch;
     ListUserSearchPref complexObject;
     ComplexPreferences complexPreferences;
+
+    ListView listSR;
 
     TextView txtDelete;
     Button btnChange;
@@ -64,13 +68,26 @@ public class SearchRouteActivity extends AppCompatActivity {
         mIntent = getIntent();
         Bundle b = mIntent.getExtras();
 
-        if(b != null) {
+        if (b != null) {
             from = mIntent.getStringExtra("FROM");
             to = mIntent.getStringExtra("TO");
         }
 
         // sharedpreference 싱글톤으로 가져오기
         complexPreferences = ComplexPreferences.getComplexPreferences(this, "mypref", MODE_PRIVATE);
+        complexObject = complexPreferences.getObject("listForSearch", ListUserSearchPref.class); // null일수 있다.
+
+        if (complexObject != null) {
+            if (complexObject.getUserSearch() != null) {
+////////////////////Test용, 데이터 get하는 거 되는지...///////////////////////////////////////////////////////
+                for (UserSearch item : complexObject.getUserSearch()) {
+                    Log.e("최근검색에 들어가 있는가?", item.getFrom().toString());
+                }
+
+                listSR = (ListView) findViewById(R.id.listSR);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            }
+        }
 
         // 키보드 관리를 위한 시작, 아래 함수 있다.
         init();
