@@ -16,7 +16,6 @@ import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -175,10 +174,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (activity) {
                     case "건물검색":
                         drawerLayout.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
-
-                        // 기존 출발지 도착지 검색바 제거
-                        LinearLayout search_route = (LinearLayout) findViewById(R.id.search_route);
-                        search_route.setVisibility(View.GONE);
 
                         // 아래의 4개 메뉴바 제거
                         LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
@@ -437,25 +432,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
                 list_menu.setVisibility(View.GONE);
 
-                // 기존 텍스트 뷰 안 보이게 하기...
-                myAutoComplete = (CustomAutoCompleteView) findViewById(R.id.myAutoComplete);
-                myAutoComplete.setVisibility(View.GONE);
-
-                LinearLayout search_route = (LinearLayout) findViewById(R.id.search_route);
-                search_route.setVisibility(View.VISIBLE);
-
                 String start_name = search_result.get(0).get_id();
                 // 텍스트가 7글자 이상일 경우 ..붙이기
                 if (start_name.length() > 7)
                 {
                     start_name = start_name.substring(0,6) + "..";
                 }
-
-                EditText txt_start = (EditText) findViewById(R.id.txt_start);
-                txt_start.setText(start_name);
-
-                EditText txt_end = (EditText) findViewById(R.id.txt_end);
-                txt_end.setText("도착지");
             }
         });
 
@@ -468,25 +450,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
                 list_menu.setVisibility(View.GONE);
 
-                // 기존 텍스트 뷰 안 보이게 하기...
-                myAutoComplete = (CustomAutoCompleteView) findViewById(R.id.myAutoComplete);
-                myAutoComplete.setVisibility(View.GONE);
-
-                LinearLayout search_route = (LinearLayout) findViewById(R.id.search_route);
-                search_route.setVisibility(View.VISIBLE);
-
                 String end_name = search_result.get(0).get_id();
                 // 텍스트가 7글자 이상일 경우 ..붙이기
                 if (end_name.length() > 7)
                 {
                     end_name = end_name.substring(0,6) + "..";
                 }
-
-                EditText txt_end = (EditText) findViewById(R.id.txt_end);
-                txt_end.setText(end_name);
-
-                EditText txt_start = (EditText) findViewById(R.id.txt_start);
-                txt_start.setText("출발지");
             }
         });
 

@@ -82,44 +82,6 @@
                             android:paddingLeft="13dp"
                             android:visibility="visible"
                             />
-
-                        <LinearLayout
-                            android:id="@+id/search_route"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="9"
-                            android:visibility="gone">
-
-                            <EditText
-                                android:id="@+id/txt_start"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="4"
-                                android:background="@drawable/bg_my_info_input_field"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginLeft="5dp"
-                                android:paddingLeft="13dp"
-                                android:text="    출발지"/>
-
-                            <ImageView
-                                android:src="@drawable/ic_action"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="2"
-                                android:layout_marginTop="5dp"
-                                android:scaleType="centerCrop"/>
-
-                            <EditText
-                                android:id="@+id/txt_end"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="4"
-                                android:background="@drawable/bg_my_info_input_field"
-                                android:layout_marginTop="10dp"
-                                android:paddingLeft="13dp"
-                                android:text="    도착지"/>
-
-                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 
