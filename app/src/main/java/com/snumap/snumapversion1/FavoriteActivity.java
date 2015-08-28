@@ -205,8 +205,8 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                 final int posForDialog = pos;
 
                 new AlertDialog.Builder(FavoriteActivity.this)
-                        .setTitle("Title")
-                        .setMessage("Do you really want to whatever?")
+                        .setTitle("삭제")
+                        .setMessage("정말 지우시겠어요?")
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
@@ -258,6 +258,8 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
         cancelTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                deleteTxt.setText("삭제");
+
                 LinearLayout listLayout2 = (LinearLayout) findViewById(R.id.list_menu2);
                 listLayout2.setVisibility(View.VISIBLE);
 
@@ -276,8 +278,8 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                         final int posForDialog = pos;
 
                         new AlertDialog.Builder(FavoriteActivity.this)
-                                .setTitle("Title")
-                                .setMessage("Do you really want to whatever?")
+                                .setTitle("삭제")
+                                .setMessage("정말 지우시겠어요?")
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
@@ -329,6 +331,8 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                     myList.clearChoices();
                     myAdapterForDelete.notifyDataSetChanged();
 
+                    deleteTxt.setText("삭제");
+
                     LinearLayout listLayout2 = (LinearLayout) findViewById(R.id.list_menu2);
                     listLayout2.setVisibility(View.VISIBLE);
 
@@ -347,8 +351,8 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                             final int posForDialog = pos;
 
                             new AlertDialog.Builder(FavoriteActivity.this)
-                                    .setTitle("Title")
-                                    .setMessage("Do you really want to whatever?")
+                                    .setTitle("삭제")
+                                    .setMessage("정말 지우시겠어요?")
                                     .setIcon(android.R.drawable.ic_dialog_alert)
                                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int whichButton) {
@@ -416,8 +420,8 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                             final int posForDialog = pos;
 
                             new AlertDialog.Builder(FavoriteActivity.this)
-                                    .setTitle("Title")
-                                    .setMessage("Do you really want to whatever?")
+                                    .setTitle("삭제")
+                                    .setMessage("정말 지우시겠어요?")
                                     .setIcon(android.R.drawable.ic_dialog_alert)
                                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int whichButton) {
@@ -487,8 +491,8 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                             final int posForDialog = pos;
 
                             new AlertDialog.Builder(FavoriteActivity.this)
-                                    .setTitle("Title")
-                                    .setMessage("Do you really want to whatever?")
+                                    .setTitle("삭제")
+                                    .setMessage("정말 지우시겠어요?")
                                     .setIcon(android.R.drawable.ic_dialog_alert)
                                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int whichButton) {

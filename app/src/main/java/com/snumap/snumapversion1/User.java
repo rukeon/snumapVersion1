@@ -33,11 +33,4 @@ public class User  {
     public Date getDate() {
         return date;
     }
-
-    // 여기서 하면 안되겠다...
-//    @Override
-//    public int compareTo(Object another) {
-//        User tmp = (User) another;
-//        return this.date.compareTo(tmp.date);
-//    }
 }
