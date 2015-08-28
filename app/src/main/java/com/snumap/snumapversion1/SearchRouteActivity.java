@@ -150,6 +150,19 @@ public class SearchRouteActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_up_info, R.anim.no_change);
             }
         });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String from = myAutoComplete.getText().toString();
+                String to = myAutoComplete2.getText().toString();
+
+                Intent goToShowRoute = new Intent(SearchRouteActivity.this, ShowRouteActivity.class);
+                goToShowRoute.putExtra("FROM", from);
+                goToShowRoute.putExtra("TO", to);
+                startActivity(goToShowRoute);
+            }
+        });
     }
 
     private void addList() {

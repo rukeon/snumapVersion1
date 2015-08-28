@@ -107,21 +107,6 @@ function init() {
     // map.addLayer(layerCountries);
 
 
-
-
-
-    // var data1 = L.latLng(1923, 2093);
-    // var data2 = L.latLng(1374, 2148);
-
-    // var latlngs = [data1, data2];
-
-    // // create a red polyline from an array of LatLng points
-    // var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
-
-    // // zoom the map to the polyline
-    // map.fitBounds(polyline.getBounds());
-
-
     var imgDir = "leaflet-0.7.3/images/";
 
     var redMarker = L.icon({
@@ -184,9 +169,8 @@ function init() {
         noWrap: true,
         attribution: '',
     }).addTo(map);
-
-
 }
+
 
 function myFunction(p1) {
     // 요 아래 것이 polyline 코드 관련된 부분
@@ -257,3 +241,42 @@ var removeMarker = function() {
         map.removeLayer(searchMarker);
     }
 }
+
+function draw() {
+    // var data1 = L.latLng(1923, 2093);
+    // var data2 = L.latLng(1374, 2148);
+    var img = [
+       5001,  // original width of image
+       2501   // original height of image
+    ];
+    var rc = new L.RasterCoords(window.map, img);
+
+    var data1 = rc.unproject([609, 1104]);
+    var data2 = rc.unproject([674, 1102]);
+    // var data3 = [73.5, -105];
+    // var data4 = [70.5, -105];
+
+    var latlngs = [data1, data2];
+
+    // create a red polyline from an array of LatLng points
+    var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+
+    // zoom the map to the polyline
+    map.fitBounds(polyline.getBounds());
+}
+
+// node1 = 609, 1104
+// node2 = 674, 1102
+
+
+// var linePath = [];
+
+// for(i=0; i<result.length-1; i++){
+//     var node1 = nodeDic[result[i]];
+//     var node2 = nodeDic[result[i+1]];
+
+//     linePath.push([rc.unproject([node1.longitude,node1.latitude]),rc.unproject([node2.longitude,node2.latitude])]);
+// }
+
+// polyline = new L.multiPolyline(linePath);   
+// window.map.addLayer(polyline);

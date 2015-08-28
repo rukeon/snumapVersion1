@@ -115,6 +115,7 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
 
                 switch (activity) {
                     case "건물검색":
+                        drawerLayoutFav.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
                         Intent goToMainIntent =
                                 new Intent(FavoriteActivity.this, MainActivity.class);
                         goToMainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -126,6 +127,7 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                         break;
 
                     case "설정":
+                        drawerLayoutFav.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
                         Intent goToSettingIntent =
                                 new Intent(FavoriteActivity.this, SettingActivity.class);
                         startActivity(goToSettingIntent);
