@@ -158,6 +158,8 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
             // 시간순 정렬을 위한....
             List<User> sortedList;
             sortedList = complexObject.users;
+            if (sortedList == null)
+                return;
             Collections.sort(sortedList, new CustomComparator(true)); // 시간순...
 
             complexObject.setUsers(sortedList);
@@ -392,7 +394,11 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                     complexObject = complexPreferences.getObject("list", ListUserPref.class);
 
                     List<User> sortedList;
+                    if (complexObject == null)
+                        return;
                     sortedList = complexObject.users;
+                    if (sortedList == null)
+                        return;
                     Collections.sort(sortedList, new CustomComparator(true)); // 시간순...
 
                     complexObject.setUsers(sortedList);
@@ -463,7 +469,11 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                     complexObject = complexPreferences.getObject("list", ListUserPref.class);
 
                     List<User> sortedList;
+                    if (complexObject == null)
+                        return;
                     sortedList = complexObject.users;
+                    if (sortedList == null)
+                        return;
                     Collections.sort(sortedList, new CustomComparator(false)); // 이름순...
 
                     complexObject.setUsers(sortedList);
