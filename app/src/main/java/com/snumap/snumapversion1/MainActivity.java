@@ -432,12 +432,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
                 list_menu.setVisibility(View.GONE);
 
+                myAutoComplete.setText("");
+
                 String start_name = search_result.get(0).get_id();
-                // 텍스트가 7글자 이상일 경우 ..붙이기
-                if (start_name.length() > 7)
-                {
-                    start_name = start_name.substring(0,6) + "..";
-                }
+                Intent goToSearchRoute = new Intent(MainActivity.this, SearchRouteActivity.class);
+                goToSearchRoute.putExtra("FROM", start_name);
+                startActivity(goToSearchRoute);
+//                // 텍스트가 7글자 이상일 경우 ..붙이기
+//                if (start_name.length() > 7)
+//                {
+//                    start_name = start_name.substring(0,6) + "..";
+//                }
             }
         });
 
@@ -450,12 +455,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
                 list_menu.setVisibility(View.GONE);
 
+                myAutoComplete.setText("");
+
                 String end_name = search_result.get(0).get_id();
-                // 텍스트가 7글자 이상일 경우 ..붙이기
-                if (end_name.length() > 7)
-                {
-                    end_name = end_name.substring(0,6) + "..";
-                }
+                Intent goToSearchRoute = new Intent(MainActivity.this, SearchRouteActivity.class);
+                goToSearchRoute.putExtra("TO", end_name);
+                startActivity(goToSearchRoute);
             }
         });
 

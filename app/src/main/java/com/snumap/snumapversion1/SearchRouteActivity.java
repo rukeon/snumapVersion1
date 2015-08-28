@@ -44,24 +44,23 @@ public class SearchRouteActivity extends AppCompatActivity {
     boolean isAutoCompleteExist1 = false;
     boolean isAutoCompleteExist2 = false;
 
-//    // 뒤로가기 컨트롤
-//    BackPressCloseHandler backPressCloseHandler;
-//    Intent mIntent;
-//    String previousActivity = "";
+    Intent mIntent;
+
+    String from;
+    String to;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_route);
 
-//        backPressCloseHandler = new BackPressCloseHandler(SearchRouteActivity.this);
-//
-//        mIntent = getIntent();
-//        Bundle b = mIntent.getExtras();
-//
-//        if(b != null) {
-//            previousActivity = mIntent.getStringExtra("FROM_ACTIVITY");
-//        }
+        mIntent = getIntent();
+        Bundle b = mIntent.getExtras();
+
+        if(b != null) {
+            from = mIntent.getStringExtra("FROM");
+            to = mIntent.getStringExtra("TO");
+        }
 
         // 키보드 관리를 위한 시작, 아래 함수 있다.
         init();
@@ -73,6 +72,20 @@ public class SearchRouteActivity extends AppCompatActivity {
         // autocompletetextview is in activity_main.xml
         myAutoComplete = (CustomAutoCompleteView) findViewById(R.id.myAutoCompleteSR);
         myAutoComplete2 = (CustomAutoCompleteView) findViewById(R.id.myAutoCompleteSR2);
+
+        if (from != null)
+        {
+            isAutoCompleteExist1 = true;
+            myAutoComplete.setText(from);
+            myAutoComplete.setCursorVisible(false);
+        }
+
+        if (to != null)
+        {
+            isAutoCompleteExist2 = true;
+            myAutoComplete2.setText(to);
+            myAutoComplete2.setCursorVisible(false);
+        }
 
         // add the listener so it will tries to suggest while the user types
         myAutoComplete.addTextChangedListener(new SRCustomAutoCompleteTextChangedListener(this));
@@ -91,6 +104,7 @@ public class SearchRouteActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myAutoComplete.setText("");
+                myAutoComplete.setCursorVisible(true);
                 showKeyboard();
             }
         });
@@ -100,6 +114,7 @@ public class SearchRouteActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myAutoComplete2.setText("");
+                myAutoComplete2.setCursorVisible(true);
                 showKeyboard2();
             }
         });
@@ -187,9 +202,4 @@ public class SearchRouteActivity extends AppCompatActivity {
         InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        backPressCloseHandler.onBackPressed();
-//    }
 }

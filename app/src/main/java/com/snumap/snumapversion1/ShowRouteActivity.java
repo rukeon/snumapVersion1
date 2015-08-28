@@ -54,9 +54,6 @@ public class ShowRouteActivity extends AppCompatActivity {
         String idxFrom = resultFrom.getName();
         String idxTo = resultTo.getName();
 
-//        fromtxt.setText(idxFrom);
-//        totxt.setText(idxTo);
-
         routeService.getRouteApi().getRoute(idxFrom, idxTo, new Callback<RouteModel>() {
             @Override
             public void success(RouteModel routeModel, Response response) {
