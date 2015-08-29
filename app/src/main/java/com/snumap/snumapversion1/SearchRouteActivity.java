@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -17,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SearchRouteActivity extends AppCompatActivity {
@@ -25,7 +25,7 @@ public class SearchRouteActivity extends AppCompatActivity {
     ListUserSearchPref complexObject;
     ComplexPreferences complexPreferences;
 
-    ListView listSR;
+    ArrayList<MyItemForListViewSR> arItem;
 
     TextView txtDelete;
     Button btnChange;
@@ -77,17 +77,38 @@ public class SearchRouteActivity extends AppCompatActivity {
         complexPreferences = ComplexPreferences.getComplexPreferences(this, "mypref", MODE_PRIVATE);
         complexObject = complexPreferences.getObject("listForSearch", ListUserSearchPref.class); // null일수 있다.
 
-        if (complexObject != null) {
-            if (complexObject.getUserSearch() != null) {
-////////////////////Test용, 데이터 get하는 거 되는지...///////////////////////////////////////////////////////
-                for (UserSearch item : complexObject.getUserSearch()) {
-                    Log.e("최근검색에 들어가 있는가?", item.getFrom().toString());
-                }
+        // 본 내용의 list 부분 시작...
+        arItem = new ArrayList<MyItemForListViewSR>();
 
-                listSR = (ListView) findViewById(R.id.listSR);
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if (complexObject != null) {
+            // 시간순 정렬을 위한....
+            List<UserSearch> sortedList;
+            sortedList = complexObject.search;
+            if (sortedList == null)
+                return;
+            Collections.sort(sortedList, new CustomComparatorSR()); // 시간순...
+
+            complexObject.setUserSearch(sortedList);
+            complexPreferences.putObject("listForSearch", complexObject);
+            complexPreferences.commit();
+        }
+
+        // 리스트 뷰에 넣을 LIST 생성
+        MyItemForListViewSR mi;
+        if (complexObject != null)
+        {
+            for(UserSearch item: complexObject.search){
+                mi = new MyItemForListViewSR(R.drawable.ic_directions_walk, item, R.drawable.arrow_forward);
+                arItem.add(mi);
             }
         }
+
+        final MyListAdapterForSR myListAdapterForSR = new MyListAdapterForSR(SearchRouteActivity.this, R.layout.widget_icontext_sr, arItem);
+
+        final ListView myList;
+        myList = (ListView) findViewById(R.id.listSR);
+//        myList.setEmptyView(findViewById(R.id.txtForNothingExist));
+        myList.setAdapter(myListAdapterForSR);
 
         // 키보드 관리를 위한 시작, 아래 함수 있다.
         init();
