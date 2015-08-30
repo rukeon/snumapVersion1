@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String[] menu_name = {
             "건물검색", "길찾기", "즐겨찾기", "설정"};
     private  Integer image_id[] = {R.drawable.ic_search,
-            R.drawable.ic_directions_walk,
+            R.drawable.ic_directions_walk_menu,
             R.drawable.ic_archive,
             R.drawable.ic_settings };
 

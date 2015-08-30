@@ -120,12 +120,12 @@
                         <!--리스트 뷰가 들어가는 부분-->
                         <ListView
                             android:id="@+id/listSR"
-                            android:background="#00ffff"
+                            android:background="#ffffff"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="gone"
-                            android:dividerHeight="0.1dp"
-                            android:divider="#A5000000"/>
+                            android:dividerHeight="0.2dp"
+                            android:divider="#b1deda"/>
 
                         <TextView
                             android:id="@+id/txtForNothingExistSR"
