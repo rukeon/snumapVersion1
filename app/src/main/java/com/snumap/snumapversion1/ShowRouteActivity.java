@@ -3,6 +3,7 @@ package com.snumap.snumapversion1;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -26,6 +27,7 @@ public class ShowRouteActivity extends AppCompatActivity {
 
     TextView fromtxt;
     TextView totxt;
+    TextView prospectTime;
 
     // db 처리하는 부분
     public MyDatabase db;
@@ -49,6 +51,7 @@ public class ShowRouteActivity extends AppCompatActivity {
 
         fromtxt = (TextView) findViewById(R.id.from);
         totxt = (TextView) findViewById(R.id.to);
+        prospectTime = (TextView) findViewById(R.id.prospectTime);
 
         mIntent = getIntent();
         Bundle b = mIntent.getExtras();
@@ -99,7 +102,38 @@ public class ShowRouteActivity extends AppCompatActivity {
                         } catch (Exception e) {
                         Log.e("exxxxxx", e.toString());
                     } finally {
+                            Thread splashTimer = new Thread() {
+                                public void run() {
+                                    try {
+                                        int distance = 0;
+                                        for (int i = 0; i < latitude.length-1; ++i)
+                                        {
+                                            int nodeDistance = (int) Math.sqrt((latitude[i] - latitude[i+1])*(latitude[i] - latitude[i+1]) + (longitude[i] - longitude[i+1])*(longitude[i] - longitude[i+1]));
+                                            distance += nodeDistance;
+                                        }
 
+                                        Log.e("distance가 어케 되는거냐?", String.valueOf(distance));
+
+                                        int time = (int) Math.round((distance*0.6)/1000*15);
+                                        if (time >= 5)
+                                        {
+                                            ++time;
+                                        }
+                                        if (time == 0)
+                                        {
+                                            time = 1;
+                                        }
+
+                                        String text = "예상소요 시간: <font color='red'>" + String.valueOf(time) + "분</font>";
+                                        prospectTime.setText(Html.fromHtml(text), TextView.BufferType.SPANNABLE);
+                                    } catch (Exception e) {
+                                        Log.e("ex", e.toString());
+                                    } finally {
+
+                                    }
+                                }
+                            };
+                            splashTimer.start();
                         }
                 }
             };

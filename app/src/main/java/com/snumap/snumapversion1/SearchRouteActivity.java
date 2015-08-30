@@ -110,6 +110,20 @@ public class SearchRouteActivity extends AppCompatActivity {
         myList.setEmptyView(findViewById(R.id.txtForNothingExistSR));
         myList.setAdapter(myListAdapterForSR);
 
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String fromList = arItem.get(position).search.getFrom();
+                String toList = arItem.get(position).search.getTo();
+
+                // 다음 activity로 gogo
+                Intent goToShowRoute = new Intent(SearchRouteActivity.this, ShowRouteActivity.class);
+                goToShowRoute.putExtra("FROM", fromList);
+                goToShowRoute.putExtra("TO", toList);
+                startActivity(goToShowRoute);
+            }
+        });
+
         // 키보드 관리를 위한 시작, 아래 함수 있다.
         init();
 
