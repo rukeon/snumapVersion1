@@ -107,7 +107,7 @@ public class SearchRouteActivity extends AppCompatActivity {
 
         final ListView myList;
         myList = (ListView) findViewById(R.id.listSR);
-//        myList.setEmptyView(findViewById(R.id.txtForNothingExist));
+        myList.setEmptyView(findViewById(R.id.txtForNothingExistSR));
         myList.setAdapter(myListAdapterForSR);
 
         // 키보드 관리를 위한 시작, 아래 함수 있다.

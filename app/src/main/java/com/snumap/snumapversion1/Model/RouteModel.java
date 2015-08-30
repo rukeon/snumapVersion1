@@ -7,26 +7,26 @@ import com.google.gson.annotations.Expose;
  */
 public class RouteModel {
     @Expose
-    private String latitude;
+    private int[] latitude;
 
     @Expose
-    private String longitude;
+    private int[] longitude;
 
-    public String getLatitude()
+    public int[] getLatitude()
     {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(int[] latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude()
+    public int[] getLongitude()
     {
         return longitude;
     }
 
-    public void setLongitude(String longitude){
+    public void setLongitude(int[] longitude){
         this.longitude = longitude;
     }
 }

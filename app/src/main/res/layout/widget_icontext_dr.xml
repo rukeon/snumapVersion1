@@ -10,7 +10,6 @@
         android:id="@+id/deleteBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/mybutton_dr"
         android:scaleType="centerCrop"
         android:clickable="true"/>
 

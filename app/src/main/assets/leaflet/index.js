@@ -242,41 +242,120 @@ var removeMarker = function() {
     }
 }
 
-function draw() {
-    // var data1 = L.latLng(1923, 2093);
-    // var data2 = L.latLng(1374, 2148);
-    var img = [
-       5001,  // original width of image
-       2501   // original height of image
-    ];
-    var rc = new L.RasterCoords(window.map, img);
+// function draw() {
+//     // var data1 = L.latLng(1923, 2093);
+//     // var data2 = L.latLng(1374, 2148);
+//     var img = [
+//        5001,  // original width of image
+//        2501   // original height of image
+//     ];
+//     var rc = new L.RasterCoords(window.map, img);
 
-    var data1 = rc.unproject([609, 1104]);
-    var data2 = rc.unproject([674, 1102]);
-    // var data3 = [73.5, -105];
-    // var data4 = [70.5, -105];
+//     var data1 = rc.unproject([609, 1104]);
+//     var data2 = rc.unproject([674, 1102]);
+//     // var data3 = [73.5, -105];
+//     // var data4 = [70.5, -105];
 
-    var latlngs = [data1, data2];
+//     var latlngs = [data1, data2];
 
-    // create a red polyline from an array of LatLng points
-    var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+//     // create a red polyline from an array of LatLng points
+//     var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
 
-    // zoom the map to the polyline
-    map.fitBounds(polyline.getBounds());
-}
-
-// node1 = 609, 1104
-// node2 = 674, 1102
-
-
-// var linePath = [];
-
-// for(i=0; i<result.length-1; i++){
-//     var node1 = nodeDic[result[i]];
-//     var node2 = nodeDic[result[i+1]];
-
-//     linePath.push([rc.unproject([node1.longitude,node1.latitude]),rc.unproject([node2.longitude,node2.latitude])]);
+//     // zoom the map to the polyline
+//     map.fitBounds(polyline.getBounds());
 // }
 
-// polyline = new L.multiPolyline(linePath);   
-// window.map.addLayer(polyline);
+// value의 예시: [[lat0, lng0], [lat1, lng1], …]
+// lat: [123, 234], long: [123,456]
+function addPolyline(value1, value2){
+    var num1 = value1.length;
+    var res1 = value1.substring(1, num1-1);
+
+    var num2 = value2.length;
+    var res2 = value2.substring(1, num2-1);
+
+    var res1Array = res1.split(",");
+    var res2Array = res2.split(",");
+
+    var i;
+    var result = new Array(); 
+    for (i = 0; i < res1Array.length; ++i) { 
+        result[i] = new Array();
+        result[i][0] = res1Array[i];
+        result[i][1] = res2Array[i];
+    }
+    // if(polyline){
+    //     window.map.removeLayer(polyline);
+    // }
+    
+    var img = [
+               5001,  // original width of image
+               2501   // original height of image
+                        ];
+    
+    var rc = new L.RasterCoords(window.map, img);
+    
+    // var result = value;
+    var i;
+    var linePath = [];
+    /*
+    for(i=0; i<result.length-1; i++){
+        linePath.push([rc.unproject([result[i][1],result[i][0]]),rc.unproject([result[i+1][1],result[i+1][0]])]);
+    }
+    polyline = new L.multiPolyline(linePath);*/
+    
+    for (i=0; i<result.length; i++){
+        linePath.push(rc.unproject([result[i][1], result[i][0]]));
+    }
+    polyline = new L.polyline(linePath, {}).addTo(window.map);
+    window.map.fitBounds(polyline.getBounds());
+    //window.map.addLayer(polyline);
+}
+
+
+var drawRoute = function(value1, value2) {
+    return function() {
+        var num1 = value1.length;
+        var res1 = value1.substring(1, num1-1);
+
+        var num2 = value2.length;
+        var res2 = value2.substring(1, num2-1);
+
+        var res1Array = res1.split(",");
+        var res2Array = res2.split(",");
+
+        var i;
+        var result = new Array(); 
+        for (i = 0; i < res1Array.length; ++i) { 
+            result[i] = new Array();
+            result[i][0] = res1Array[i];
+            result[i][1] = res2Array[i];
+        }
+        // if(polyline){
+        //     window.map.removeLayer(polyline);
+        // }
+        
+        var img = [
+                   5001,  // original width of image
+                   2501   // original height of image
+                            ];
+        
+        var rc = new L.RasterCoords(window.map, img);
+        
+        // var result = value;
+        var i;
+        var linePath = [];
+        /*
+        for(i=0; i<result.length-1; i++){
+            linePath.push([rc.unproject([result[i][1],result[i][0]]),rc.unproject([result[i+1][1],result[i+1][0]])]);
+        }
+        polyline = new L.multiPolyline(linePath);*/
+        
+        for (i=0; i<result.length; i++){
+            linePath.push(rc.unproject([result[i][1], result[i][0]]));
+        }
+        polyline = new L.polyline(linePath, {}).addTo(window.map);
+        window.map.fitBounds(polyline.getBounds());
+        //window.map.addLayer(polyline);       
+    }
+}

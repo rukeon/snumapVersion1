@@ -22,12 +22,12 @@ import java.util.ArrayList;
 public class MyListAdapterForDR extends BaseAdapter {
     Context maincon;
     LayoutInflater inflater;
-    ArrayList<MyItemForListViewSR> arSrc;
+    ArrayList<MyItemForListViewDR> arSrc;
     int layout;
     int num;
     ArrayList<Integer> beDelete;
 
-    public MyListAdapterForDR(Context context, int alayout, ArrayList<MyItemForListViewSR> aarSrc) {
+    public MyListAdapterForDR(Context context, int alayout, ArrayList<MyItemForListViewDR> aarSrc) {
         maincon = context;
         arSrc = aarSrc;
         layout = alayout;
@@ -52,6 +52,15 @@ public class MyListAdapterForDR extends BaseAdapter {
         return beDelete;
     }
 
+    public void setNum(int num){
+        this.num = num;
+    }
+
+    public void setBeDelete(ArrayList<Integer> beDelete)
+    {
+        this.beDelete = beDelete;
+    }
+
     // 각 항목의 뷰 생성
     public View getView(int position, View convertView, ViewGroup parent) {
         final int pos = position;
@@ -67,6 +76,9 @@ public class MyListAdapterForDR extends BaseAdapter {
 
         ImageView imgArrow = (ImageView) convertView.findViewById(R.id.arrowDR);
         imgArrow.setImageResource(arSrc.get(position).iconArrow);
+
+        ImageView button = (ImageView) convertView.findViewById(R.id.deleteBtn);
+        button.setImageResource(arSrc.get(position).iconButton);
 
         final ImageView deleteBtn = (ImageView) convertView.findViewById(R.id.deleteBtn);
 
@@ -96,7 +108,7 @@ public class MyListAdapterForDR extends BaseAdapter {
                     beDelete.remove(new Integer(pos));
 
                     for (int i : beDelete) {
-                        Log.e("현재 beDelete의 상태:  ", String.valueOf(i));
+                        Log.e("현재 beDelete의 상태true:  ", String.valueOf(i));
                     }
 
                 } else {
@@ -105,14 +117,13 @@ public class MyListAdapterForDR extends BaseAdapter {
                     beDelete.add(new Integer(pos));
 
                     for (int i : beDelete) {
-                        Log.e("현재 beDelete의 상태:  ", String.valueOf(i));
+                        Log.e("현재 beDelete의 상태false:  ", String.valueOf(i));
                     }
                 }
-                Log.e("선택된 것의 숫자:  ", String.valueOf(num));
-//                String str = arSrc.get(pos).name + "를 주문합니다.";
                 deleteBtn.setActivated(!deleteBtn.isActivated());
             }
         });
+
         return convertView;
     }
 }

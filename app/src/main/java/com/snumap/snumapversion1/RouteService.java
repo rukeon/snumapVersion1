@@ -11,7 +11,7 @@ import retrofit.android.AndroidLog;
 public class RouteService {
     private RestAdapter restAdapter;
     private RouteApi routeApi;
-    private final String BASE_URL = "http://snumap.com/cmap/selectize/examples";
+    private final String BASE_URL = "http://snumap.com/cmap/navi";
 
     public RouteService() {
         restAdapter = new RestAdapter.Builder()

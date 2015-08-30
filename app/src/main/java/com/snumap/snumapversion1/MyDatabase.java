@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class MyDatabase extends SQLiteAssetHelper {
     private static final String DATABASE_NAME = "Data.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     // table details
     public String tableName = "build";
@@ -27,7 +27,7 @@ public class MyDatabase extends SQLiteAssetHelper {
     public MyDatabase(Context context)
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-//        setForcedUpgrade();
+        setForcedUpgrade();
     }
 
     // Read records related to the search term
@@ -37,7 +37,7 @@ public class MyDatabase extends SQLiteAssetHelper {
         String sql = "";
         sql += "SELECT * FROM " + tableName;
         sql += " WHERE " + fieldObjectId + " LIKE '%" + searchTerm + "%'";
-        sql += " ORDER BY " + fieldObjectName + " ASC";
+        sql += " ORDER BY " + fieldObjectNumber + " ASC";
         sql += " LIMIT 0,5";
 
         SQLiteDatabase db = this.getWritableDatabase();
