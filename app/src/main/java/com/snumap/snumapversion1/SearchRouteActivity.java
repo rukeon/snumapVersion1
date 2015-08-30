@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +28,7 @@ public class SearchRouteActivity extends AppCompatActivity {
     ArrayList<MyItemForListViewSR> arItem;
 
     TextView txtDelete;
-    Button btnChange;
+    ImageView imgChange;
     FloatingActionButton fab;
 
     private InputMethodManager imm; // for keybaord control
@@ -213,7 +213,7 @@ public class SearchRouteActivity extends AppCompatActivity {
         });
 
         txtDelete = (TextView) findViewById(R.id.txtDelete);
-        btnChange = (Button) findViewById(R.id.btnChange);
+        imgChange = (ImageView) findViewById(R.id.imgChange);
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
         String text = "최근 검색기록 <font color='red'>삭제</font>";
@@ -261,6 +261,38 @@ public class SearchRouteActivity extends AppCompatActivity {
                 goToShowRoute.putExtra("FROM", from);
                 goToShowRoute.putExtra("TO", to);
                 startActivity(goToShowRoute);
+            }
+        });
+
+        imgChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isAutoCompleteExist1 && isAutoCompleteExist2)
+                {
+                    String from = myAutoComplete.getText().toString();
+                    String to = myAutoComplete2.getText().toString();
+
+                    myAutoComplete.setText(to);
+                    myAutoComplete2.setText(from);
+
+                    isAutoCompleteExist1 = true;
+                    isAutoCompleteExist2 = true;
+
+                    fab.setVisibility(View.VISIBLE);
+                } else if(isAutoCompleteExist1)
+                {
+                    String from = myAutoComplete.getText().toString();
+
+                    myAutoComplete.setText("");
+                    myAutoComplete2.setText(from);
+                    isAutoCompleteExist2 = true;
+                } else if(isAutoCompleteExist2)
+                {
+                    String to = myAutoComplete2.getText().toString();
+                    myAutoComplete2.setText("");
+                    myAutoComplete.setText(to);
+                    isAutoCompleteExist1 = true;
+                }
             }
         });
     }

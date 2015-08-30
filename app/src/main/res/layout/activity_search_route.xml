@@ -48,16 +48,18 @@
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="105dp"
+                    android:layout_height="100dp"
                     android:orientation="horizontal"
                     android:background="#b2dfdb">
 
-                    <Button
-                        android:id="@+id/btnChange"
+                    <ImageView
+                        android:id="@+id/imgChange"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="바꾸기"/>
+                        android:src="@drawable/searchchange"
+                        android:layout_marginLeft="8dp"
+                        android:clickable="true"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
