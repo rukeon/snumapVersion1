@@ -42,17 +42,15 @@ public class ShowRouteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_route);
-//
+
         mapView = (WebView) findViewById(R.id.map_viewSR);
         mapView.getSettings().setJavaScriptEnabled(true);
-
-//        mapView.loadUrl(URL);
 
         // 디비 처리 하는 부분 시작
         db = new MyDatabase(this);
 
-        fromtxt = (TextView) findViewById(R.id.from);
-        totxt = (TextView) findViewById(R.id.to);
+        fromtxt = (TextView) findViewById(R.id.fromSR);
+        totxt = (TextView) findViewById(R.id.toSR);
         prospectTime = (TextView) findViewById(R.id.prospectTime);
 
         mIntent = getIntent();
@@ -69,6 +67,9 @@ public class ShowRouteActivity extends AppCompatActivity {
         // 추후에 number에 idx를 넣자
         String idxFrom = resultFrom.getNumber();
         String idxTo = resultTo.getNumber();
+
+        fromtxt.setText(resultFrom.get_id());
+        totxt.setText(resultTo.get_id());
 
         getData(idxFrom, idxTo);
     }
@@ -160,5 +161,13 @@ public class ShowRouteActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    // 뒤로가기 버튼 컨트롤
+    @Override
+    public void onBackPressed() {
+        Intent intent_go_back = new Intent(ShowRouteActivity.this, SearchRouteActivity.class);
+        intent_go_back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent_go_back);
     }
 }
