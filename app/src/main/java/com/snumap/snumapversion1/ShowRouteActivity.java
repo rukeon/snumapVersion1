@@ -1,5 +1,6 @@
 package com.snumap.snumapversion1;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.snumap.snumapversion1.Model.RouteModel;
 
@@ -72,11 +74,19 @@ public class ShowRouteActivity extends AppCompatActivity {
     }
 
     private void getData(String from, String to){
+        final ProgressDialog mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+
         RouteService routeService = new RouteService();
 
         routeService.getRouteApi().getRoute(from, to, new Callback<RouteModel>() {
             @Override
             public void success(final RouteModel routeModel, Response response) {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+
                 Thread routeReciever = new Thread() {
                     public void run() {
                         try {
@@ -122,6 +132,8 @@ public class ShowRouteActivity extends AppCompatActivity {
                                         if (time == 0)
                                         {
                                             time = 1;
+                                            if (distance == 0)
+                                                time = 0;
                                         }
 
                                         String text = "예상소요 시간: <font color='red'>" + String.valueOf(time) + "분</font>";
@@ -140,8 +152,12 @@ public class ShowRouteActivity extends AppCompatActivity {
             routeReciever.start();
             }
             @Override
-            public void failure(RetrofitError error) {
-                Log.e("여긴가?", error.toString());
+            public void failure(RetrofitError error)
+            {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

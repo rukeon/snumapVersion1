@@ -221,8 +221,11 @@ var moveLeaflet = function(value) {
 
        // 점 찍는 알고리즘 시작
        // moveLeaflet([37.460424, 126.952948])(); 이렇게 사용하면 된다. 
-       var longitude = convertLong(value[1]);
-       var latitude = convertLat(value[0]);
+       // var longitude = convertLong(value[1]);
+       // var latitude = convertLat(value[0]);
+
+       var longitude = value[1];
+       var latitude = value[0];
        var img = [
            5001,  // original width of image
            2501   // original height of image
@@ -277,6 +280,8 @@ function addPolyline(value1, value2){
     var res1Array = res1.split(",");
     var res2Array = res2.split(",");
 
+
+
     var i;
     var result = new Array(); 
     for (i = 0; i < res1Array.length; ++i) { 
@@ -323,6 +328,12 @@ var drawRoute = function(value1, value2) {
 
         var res1Array = res1.split(",");
         var res2Array = res2.split(",");
+
+        if (res1Array.length == 1)
+        {
+            moveLeaflet([ res2Array[0], res1Array[0] ])();
+            return;
+        }
 
         var i;
         var result = new Array(); 

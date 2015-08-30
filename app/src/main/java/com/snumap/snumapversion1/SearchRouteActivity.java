@@ -246,7 +246,7 @@ public class SearchRouteActivity extends AppCompatActivity {
                 } //...가져오기
 
                 if (complexObject.isExist(recentSearch)) {
-                    Toast.makeText(SearchRouteActivity.this, "이미 존재합니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchRouteActivity.this, "검색기록이 존재합니다.", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     userSearch.add(recentSearch);
