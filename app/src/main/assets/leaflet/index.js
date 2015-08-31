@@ -271,52 +271,47 @@ var removeMarker = function() {
 
 // value의 예시: [[lat0, lng0], [lat1, lng1], …]
 // lat: [123, 234], long: [123,456]
-function addPolyline(value1, value2){
-    var num1 = value1.length;
-    var res1 = value1.substring(1, num1-1);
+// function addPolyline(value1, value2){
+//     var num1 = value1.length;
+//     var res1 = value1.substring(1, num1-1);
 
-    var num2 = value2.length;
-    var res2 = value2.substring(1, num2-1);
+//     var num2 = value2.length;
+//     var res2 = value2.substring(1, num2-1);
 
-    var res1Array = res1.split(",");
-    var res2Array = res2.split(",");
+//     var res1Array = res1.split(",");
+//     var res2Array = res2.split(",");
 
-
-
-    var i;
-    var result = new Array(); 
-    for (i = 0; i < res1Array.length; ++i) { 
-        result[i] = new Array();
-        result[i][0] = res1Array[i];
-        result[i][1] = res2Array[i];
-    }
-    // if(polyline){
-    //     window.map.removeLayer(polyline);
-    // }
+//     var i;
+//     var result = new Array(); 
+//     for (i = 0; i < res1Array.length; ++i) { 
+//         result[i] = new Array();
+//         result[i][0] = res1Array[i];
+//         result[i][1] = res2Array[i];
+//     }
     
-    var img = [
-               5001,  // original width of image
-               2501   // original height of image
-                        ];
+//     var img = [
+//                5001,  // original width of image
+//                2501   // original height of image
+//                         ];
     
-    var rc = new L.RasterCoords(window.map, img);
+//     var rc = new L.RasterCoords(window.map, img);
     
-    // var result = value;
-    var i;
-    var linePath = [];
-    /*
-    for(i=0; i<result.length-1; i++){
-        linePath.push([rc.unproject([result[i][1],result[i][0]]),rc.unproject([result[i+1][1],result[i+1][0]])]);
-    }
-    polyline = new L.multiPolyline(linePath);*/
+//     // var result = value;
+//     var i;
+//     var linePath = [];
+//     /*
+//     for(i=0; i<result.length-1; i++){
+//         linePath.push([rc.unproject([result[i][1],result[i][0]]),rc.unproject([result[i+1][1],result[i+1][0]])]);
+//     }
+//     polyline = new L.multiPolyline(linePath);*/
     
-    for (i=0; i<result.length; i++){
-        linePath.push(rc.unproject([result[i][1], result[i][0]]));
-    }
-    polyline = new L.polyline(linePath, {}).addTo(window.map);
-    window.map.fitBounds(polyline.getBounds());
-    //window.map.addLayer(polyline);
-}
+//     for (i=0; i<result.length; i++){
+//         linePath.push(rc.unproject([result[i][1], result[i][0]]));
+//     }
+//     polyline = new L.polyline(linePath, {}).addTo(window.map);
+//     window.map.fitBounds(polyline.getBounds());
+//     //window.map.addLayer(polyline);
+// }
 
 
 var drawRoute = function(value1, value2) {
@@ -343,9 +338,6 @@ var drawRoute = function(value1, value2) {
             result[i][0] = res1Array[i];
             result[i][1] = res2Array[i];
         }
-        // if(polyline){
-        //     window.map.removeLayer(polyline);
-        // }
         
         var img = [
                    5001,  // original width of image
@@ -354,30 +346,35 @@ var drawRoute = function(value1, value2) {
         
         var rc = new L.RasterCoords(window.map, img);
 
-        // 폴리 라인 그리기
-        // var arrow = L.polyline([[73.5, -90], [73.5, -75]], {}).addTo(map);
-        // var arrowHead = L.polylineDecorator(arrow).addTo(map);
-
-        // var arrowOffset = 0;
-        // var anim = window.setInterval(function() {
-        //     arrowHead.setPatterns([
-        //         {offset: arrowOffset+'%', repeat: 0, symbol: L.Symbol.arrowHead({pixelSize: 15, polygon: false, pathOptions: {stroke: true}})}
-        //     ])
-        //     if(++arrowOffset > 100)
-        //         arrowOffset = 0;
-        // }, 50); // 속도다.(화살표가 움직이는)     
-        
-        // var result = value;
         var i;
         var linePath = [];
-        /*
-        for(i=0; i<result.length-1; i++){
-            linePath.push([rc.unproject([result[i][1],result[i][0]]),rc.unproject([result[i+1][1],result[i+1][0]])]);
-        }
-        polyline = new L.multiPolyline(linePath);*/
+
+        var startIcon = L.icon({
+                iconUrl: 'http://snumap.com/cmap/pin-05.png',
+                iconRetinaUrl: 'http://snumap.com/cmap/pin-05.png',
+                iconSize: [35, 38],
+                iconAnchor: [14, 32],
+                popupAnchor: [-3, -38],
+            });
+
+        var startMarker = new L.marker(rc.unproject([res2Array[0], res1Array[0]]),{icon: startIcon});     
         
+        window.map.addLayer(startMarker);
+
+        var finishIcon = L.icon({
+                iconUrl: 'http://snumap.com/cmap/pin-06.png',
+                iconRetinaUrl: 'http://snumap.com/cmap/pin-06.png',
+                iconSize: [35, 38],
+                iconAnchor: [14, 32],
+                popupAnchor: [-3, -38],
+        });
+
+        var finishMarker = new L.marker(rc.unproject([res2Array[res2Array.length-1], res1Array[res1Array.length-1]]),{icon: finishIcon});     
+        
+        window.map.addLayer(finishMarker);
+
         for (i=0; i<result.length; i++){
-            linePath.push(rc.unproject([result[i][1], result[i][0]]));
+            linePath.push(rc.unproject([ result[i][1], result[i][0] ]));
         }
         var polyline = new L.polyline(linePath, {}).addTo(window.map);
         var arrowHead = L.polylineDecorator(polyline).addTo(map);

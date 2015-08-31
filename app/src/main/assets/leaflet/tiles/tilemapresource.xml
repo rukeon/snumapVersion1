@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
     <TileMap version="1.0.0" tilemapservice="http://tms.osgeo.org/1.0.0">
-      <Title>snumap.png</Title>
+      <Title>map5.png</Title>
       <Abstract></Abstract>
       <SRS></SRS>
-      <BoundingBox minx="0.00000000000000" miny="-2501.00000000000000" maxx="5001.00000000000000" maxy="0.00000000000000"/>
-      <Origin x="0.00000000000000" y="-2501.00000000000000"/>
+      <BoundingBox minx="0.00000000000000" miny="-2500.00000000000000" maxx="5000.00000000000000" maxy="0.00000000000000"/>
+      <Origin x="0.00000000000000" y="-2500.00000000000000"/>
       <TileFormat width="256" height="256" mime-type="image/png" extension="png"/>
       <TileSets profile="raster">
         <TileSet href="0" units-per-pixel="32.00000000000000" order="0"/>
