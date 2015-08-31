@@ -311,17 +311,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         final double latitude = gps.getLatitude();
                         final double longitude = gps.getLongitude();
 
+                        int checkLat = (int) Math.round((37.47118-latitude)*190028.45849802);
+                        int checkLong = (int) Math.round((126.96237-longitude)*152649.77242893);
+
+                        if (checkLat < 0 || checkLat > 5000 || checkLong > 2500 || checkLong < 0)
+                        {
+                            Toast.makeText(MainActivity.this, "지도에 표시할 수 없는 위치입니다.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                         mapView.setWebViewClient(new WebViewClient() {
                             @Override
                             public void onPageFinished(WebView view, String url) {
                                 // TODO Auto-generated method stub
                                 super.onPageFinished(view, url);
 
-                                view.loadUrl("javascript:moveLeaflet([" + String.valueOf(latitude) + "," + String.valueOf(longitude) + "])();");
+                                view.loadUrl("javascript:drawCurrentPos([" + String.valueOf(latitude) + "," + String.valueOf(longitude) + "])();");
                             }
                         });
                         //load webpage from assets
                         mapView.loadUrl(URL);
+
+                        Toast.makeText(MainActivity.this, "내 위치와 차이가 날 수 있습니다.", Toast.LENGTH_SHORT).show();
                     } else {
                         gps.showSettingsAlert();
                     }

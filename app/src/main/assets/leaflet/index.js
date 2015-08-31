@@ -172,28 +172,29 @@ function init() {
 }
 
 
-function myFunction(p1) {
-    // 요 아래 것이 polyline 코드 관련된 부분
-    // --- Arrow, with animation to demonstrate the use of setPatterns ---
-    var arrow = L.polyline([[p1, -90], [73.5, -75]], {}).addTo(map);
-    var arrowHead = L.polylineDecorator(arrow).addTo(map);
-    
-    var arrowOffset = 0;
-    var anim = window.setInterval(function() {
-        arrowHead.setPatterns([
-            {offset: arrowOffset+'%', repeat: 0, symbol: L.Symbol.arrowHead({pixelSize: 15, polygon: false, pathOptions: {stroke: true}})}
-        ])
-        if(++arrowOffset > 100)
-            arrowOffset = 0;
-    }, 50); // 속도다.(화살표가 움직이는) 
-}
-
 function convertLat(latitude){
     return Math.round((37.47118-latitude)*190028.45849802);
 }
 
 function convertLong(longitude){
     return Math.round((126.96237-longitude)*152649.77242893); 
+}
+
+var drawCurrentPos = function(value) {
+    return function() {
+        var longitude = convertLong(value[1]);
+        var latitude = convertLat(value[0]);
+
+        var img = [
+           5001,  // original width of image
+           2501   // original height of image
+        ];
+       var rc = new L.RasterCoords(window.map, img);
+       searchMarker = new L.marker(rc.unproject([latitude,longitude]));
+       window.map.addLayer(searchMarker);
+       window.map.panTo(rc.unproject([latitude,longitude]));
+       window.map.setView(rc.unproject([latitude,longitude]), 3);
+    }
 }
 
 var moveLeaflet = function(value) {
