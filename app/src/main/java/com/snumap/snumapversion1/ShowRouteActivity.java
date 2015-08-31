@@ -134,25 +134,9 @@ public class ShowRouteActivity extends AppCompatActivity {
                                     mapView.loadUrl(URL);
                                 }
                             });
-
-//                            mapView.setWebViewClient(new WebViewClient() {
-//                                @Override
-//                                public void onPageFinished(WebView view, String url) {
-//                                    // TODO Auto-generated method stub
-//                                    super.onPageFinished(view, url);
-//
-//                                    String lat = Arrays.toString(latitude);
-//                                    String longitu = Arrays.toString(longitude);
-//
-//                                    Log.e("도대체 뭐가 들어가는 게냐?" , "drawRoute(\"\" + lat + \"\\\",\\\"\" + longitu +  \"\")();");
-//
-//                                    view.loadUrl("javascript:drawRoute(\"" + lat + "\",\"" + longitu +  "\")();");
-//                                }
-//                            });
-//                            //load webpage from assets
-//                            mapView.loadUrl(URL);
                         } catch (Exception e) {
-                        Log.e("exxxxxx", e.toString());
+                            Toast.makeText(ShowRouteActivity.this, "에러가 발생했습니다. 알려주시면 조속히 해결하도록 하겠습니다.", Toast.LENGTH_SHORT).show();
+                            Log.e("exxxxxx", e.toString());
                     } finally {
                             Thread splashTimer = new Thread() {
                                 public void run() {

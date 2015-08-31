@@ -388,6 +388,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             complexObject.setUsers(users);
                         } else if (complexObject.isExist(tmpUser)) {
                             Toast.makeText(MainActivity.this, "이미 존재합니다.", Toast.LENGTH_SHORT).show();
+                            LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
+                            list_menu.setVisibility(View.VISIBLE);
                             return;
                         } else {
                             users.add(tmpUser);

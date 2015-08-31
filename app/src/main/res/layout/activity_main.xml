@@ -131,7 +131,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="horizontal"
-                                    android:visibility="visible"
+                                    android:visibility="gone"
                                     >
 
                                     <LinearLayout
@@ -197,7 +197,7 @@
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
                                         android:layout_weight="1"
-                                        android:background="@drawable/border">
+                                        android:background="@drawable/menu_share">
                                         <RelativeLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent">
@@ -205,7 +205,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:textColor="#ffffff"
-                                                android:text="공유하기"
+                                                android:text=""
                                                 android:layout_centerInParent="true"
                                                 />
                                         </RelativeLayout>
