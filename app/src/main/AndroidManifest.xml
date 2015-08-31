@@ -77,19 +77,23 @@
         </activity>
         <activity
             android:name=".ShowRouteActivity"
-            android:label="@string/title_activity_show_route" >
+            android:label="@string/title_activity_show_route"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".DeleteRecentSearchActivity"
-            android:label="@string/title_activity_delete_recent_search" >
+            android:label="@string/title_activity_delete_recent_search"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".AlarmActivity"
-            android:label="@string/title_activity_alarm" >
+            android:label="@string/title_activity_alarm"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ErrorActivity"
-            android:label="@string/title_activity_error" >
+            android:label="@string/title_activity_error"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

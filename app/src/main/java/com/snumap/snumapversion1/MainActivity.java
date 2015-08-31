@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // 슬라이딩 메뉴 아랫부분 클릭 시 close되게
     FrameLayout close;
 
+   LinearLayout list_menu;
+
     private String[] menu_name = {
             "건물검색", "길찾기", "즐겨찾기", "설정"};
     private  Integer image_id[] = {R.drawable.ic_search,
@@ -92,6 +95,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        list_menu = (LinearLayout) findViewById(R.id.list_menu);
 
         // 현재위치 관련
         currentPostion = (ImageView) findViewById(R.id.currentPostion);
@@ -175,24 +180,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case "건물검색":
                         drawerLayout.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
 
-                        // 아래의 4개 메뉴바 제거
-                        LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
-                        list_menu.setVisibility(View.GONE);
-
-                        myAutoComplete = (CustomAutoCompleteView) findViewById(R.id.myAutoComplete);
-                        myAutoComplete.setVisibility(View.VISIBLE);
-                        myAutoComplete.setText("");
-
-                        mapView.setWebViewClient(new WebViewClient() {
-                            @Override
-                            public void onPageFinished(WebView view, String url) {
-                                // TODO Auto-generated method stub
-                                super.onPageFinished(view, url);
-                                view.loadUrl("javascript:removeMarker()();");
-                            }
-                        });
-                        //load webpage from assets
-                        mapView.loadUrl(URL);
+                        Intent goToMainIntent =
+                                new Intent(MainActivity.this, MainActivity.class);
+                        goToMainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(goToMainIntent);
                         break;
 
                     case "길찾기":
@@ -252,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 showKeyboard();
                 LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
                 list_menu.setVisibility(View.GONE);
+
             }
         });
 
@@ -488,7 +480,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 // 카카오톡 전송을 위한 정보 가져오기
                 String user_search = search_result.get(0).get_id();
-                String buildingIndex = search_result.get(0).getName();
+                String buildingIndex = search_result.get(0).getNumber();
+                Log.e("인덱스::::::::::", buildingIndex);
 
                 sendLink(imgSrcLink, buildingIndex, user_search);
             }
@@ -500,7 +493,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             kakaoTalkLinkMessageBuilder.addText(search);
             kakaoTalkLinkMessageBuilder.addImage(imgSrcLink, 269, 95);
-            kakaoTalkLinkMessageBuilder.addWebButton("웹으로 이동", "http://snumap.com/cmap/selectize/examples/dynamic.html?idx=" + index);
+            kakaoTalkLinkMessageBuilder.addWebButton("지도에서 위치 확인하기", "http://snumap.com/dynamic.html?idx=" + index);
             final String linkContents = kakaoTalkLinkMessageBuilder.build();
             kakaoLink.sendMessage(linkContents, this);
         } catch (KakaoParameterException e) {

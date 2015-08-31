@@ -156,8 +156,16 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         plzAskbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent faqintent = new Intent(SettingActivity.this, FaQActivity.class);
-                startActivity(faqintent);
+                final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+
+                /* Fill it with Data */
+                emailIntent.setType("text/plain");
+                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"chloe@krazi.net"});
+                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
+                emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "");
+
+                /* Send it off to the Activity-Chooser */
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."));
             }
         });
 
