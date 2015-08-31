@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
     android:orientation="horizontal"
     android:paddingTop="5dp"
     android:paddingBottom="5dp">
@@ -9,7 +9,8 @@
     <ImageView
         android:id="@+id/walkMan"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="8dp"
         android:scaleType="centerCrop"/>
 
     <RelativeLayout
@@ -17,26 +18,39 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/txtFrom"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/idfrom"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:textSize="20dp"
-            android:gravity="center"/>
+            android:layout_marginLeft="5dp">
+            <TextView
+                android:id="@+id/txtFrom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="15dp"
+                android:gravity="center"/>
+        </RelativeLayout>
+
 
         <ImageView
             android:id="@+id/arrow"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@id/txtFrom" />
+            android:layout_toRightOf="@id/idfrom" />
 
-        <TextView
-            android:id="@+id/txtTo"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:gravity="center"
-            android:layout_toRightOf="@id/arrow"/>
+            android:layout_toRightOf="@id/arrow">
+            <TextView
+                android:id="@+id/txtTo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="15dp"
+                android:gravity="center"
+                />
+        </RelativeLayout>
+
     </RelativeLayout>
 </LinearLayout>
