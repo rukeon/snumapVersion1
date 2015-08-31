@@ -51,10 +51,20 @@ public class MyListAdapterForSR extends BaseAdapter {
         imgWalk.setImageResource(arSrc.get(position).iconWalk);
 
         TextView txtFrom = (TextView) convertView.findViewById(R.id.txtFrom);
-        txtFrom.setText(arSrc.get(position).search.getFrom());
+        String from = arSrc.get(position).search.getFrom();
+//        if(from.length() > 7)
+//        {
+//            from = from.substring(6) + "..";
+//        }
+        txtFrom.setText(from);
 
         TextView txtTo = (TextView) convertView.findViewById(R.id.txtTo);
-        txtTo.setText(arSrc.get(position).search.getTo());
+        String to = arSrc.get(position).search.getTo();
+//        if(to.length() > 7)
+//        {
+//            to = to.substring(6) + "..";
+//        }
+        txtTo.setText(to);
 
         ImageView imgArrow = (ImageView) convertView.findViewById(R.id.arrow);
         imgArrow.setImageResource(arSrc.get(position).iconArrow);

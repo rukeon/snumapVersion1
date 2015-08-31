@@ -68,8 +68,27 @@ public class ShowRouteActivity extends AppCompatActivity {
         String idxFrom = resultFrom.getNumber();
         String idxTo = resultTo.getNumber();
 
-        fromtxt.setText(resultFrom.get_id());
-        totxt.setText(resultTo.get_id());
+        String forFromtxt = resultFrom.get_id();
+        String forTotxt = resultTo.get_id();
+//        String formatForFrom = "";
+//        String formatForTo = "";
+//
+//        if(forFromtxt.length() >6)
+//        {
+//            formatForFrom = forFromtxt.substring(0,6) + "...";
+//        } else {
+//            formatForFrom = forFromtxt;
+//        }
+//
+//        if(forTotxt.length() >6)
+//        {
+//            formatForTo = forTotxt.substring(0,6) + "...";
+//        } else {
+//            formatForTo = forTotxt;
+//        }
+
+        fromtxt.setText(forFromtxt);
+        totxt.setText(forTotxt);
 
         getData(idxFrom, idxTo);
     }

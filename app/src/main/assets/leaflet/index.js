@@ -352,6 +352,19 @@ var drawRoute = function(value1, value2) {
                             ];
         
         var rc = new L.RasterCoords(window.map, img);
+
+        // 폴리 라인 그리기
+        // var arrow = L.polyline([[73.5, -90], [73.5, -75]], {}).addTo(map);
+        // var arrowHead = L.polylineDecorator(arrow).addTo(map);
+
+        // var arrowOffset = 0;
+        // var anim = window.setInterval(function() {
+        //     arrowHead.setPatterns([
+        //         {offset: arrowOffset+'%', repeat: 0, symbol: L.Symbol.arrowHead({pixelSize: 15, polygon: false, pathOptions: {stroke: true}})}
+        //     ])
+        //     if(++arrowOffset > 100)
+        //         arrowOffset = 0;
+        // }, 50); // 속도다.(화살표가 움직이는)     
         
         // var result = value;
         var i;
@@ -365,7 +378,17 @@ var drawRoute = function(value1, value2) {
         for (i=0; i<result.length; i++){
             linePath.push(rc.unproject([result[i][1], result[i][0]]));
         }
-        polyline = new L.polyline(linePath, {}).addTo(window.map);
+        var polyline = new L.polyline(linePath, {}).addTo(window.map);
+        var arrowHead = L.polylineDecorator(polyline).addTo(map);
+
+        var arrowOffset = 0;
+        var anim = window.setInterval(function() {
+            arrowHead.setPatterns([
+                {offset: arrowOffset+'%', repeat: 0, symbol: L.Symbol.arrowHead({pixelSize: 15, polygon: false, pathOptions: {stroke: true}})}
+            ])
+            if(++arrowOffset > 100)
+                arrowOffset = 0;
+        }, 80); // 속도다.(화살표가 움직이는)   
         window.map.fitBounds(polyline.getBounds());
         //window.map.addLayer(polyline);       
     }

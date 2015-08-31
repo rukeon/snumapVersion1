@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/walkMan"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="40dp"
         android:scaleType="centerCrop"/>
 
     <RelativeLayout
