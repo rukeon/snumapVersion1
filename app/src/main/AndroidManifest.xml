@@ -87,6 +87,10 @@
             android:name=".AlarmActivity"
             android:label="@string/title_activity_alarm" >
         </activity>
+        <activity
+            android:name=".ErrorActivity"
+            android:label="@string/title_activity_error" >
+        </activity>
     </application>
 
 </manifest>

@@ -359,7 +359,7 @@ public class SearchRouteActivity extends AppCompatActivity implements View.OnCli
                 } //...가져오기
 
                 if (complexObject.isExist(recentSearch)) {
-                    Toast.makeText(SearchRouteActivity.this, "검색기록이 존재합니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchRouteActivity.this, "검색기록이 존재합니다. 항목에서 탭하여 이용해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     userSearch.add(recentSearch);

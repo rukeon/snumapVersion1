@@ -71,7 +71,9 @@ public class IntroActivity extends AppCompatActivity {
                                 startActivity(new Intent(IntroActivity.this,
                                         MainActivity.class));
                             } else {
-                                Log.e("todayStatus", String.valueOf(todayStatus));
+//                                Intent
+
+//                                Log.e("todayStatus", String.valueOf(todayStatus));
                             }
                         } catch (Exception e) {
                             Log.e("ex", e.toString());

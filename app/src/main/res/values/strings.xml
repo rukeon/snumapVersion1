@@ -13,4 +13,5 @@
     <string name="title_activity_show_route">ShowRouteActivity</string>
     <string name="title_activity_delete_recent_search">DeleteRecentSearchActivity</string>
     <string name="title_activity_alarm">AlarmActivity</string>
+    <string name="title_activity_error">ErrorActivity</string>
 </resources>

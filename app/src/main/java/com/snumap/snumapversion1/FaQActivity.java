@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+
+// NOTE!!! 이것이 실제론 문의하기 액티비티다.
 public class FaQActivity extends AppCompatActivity {
     private WebView mywebView;
     private ImageView gotoBack;
@@ -46,7 +48,8 @@ public class FaQActivity extends AppCompatActivity {
 
             mywebView.setWebViewClient(new mywebClient());
             mywebView.getSettings().setJavaScriptEnabled(true);
-            mywebView.loadUrl("http://www.snumap.com/snumap/#page2");
+            // 문의하기로 연결되어 있어야 한다.
+            mywebView.loadUrl("http://www.snumap.com/mobileask.html");
 
             gotoBack.setOnClickListener(new View.OnClickListener() {
                 @Override

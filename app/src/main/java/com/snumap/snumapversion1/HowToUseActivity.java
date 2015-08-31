@@ -47,7 +47,7 @@ public class HowToUseActivity extends AppCompatActivity {
 
             webView.setWebViewClient(new myWebClient());
             webView.getSettings().setJavaScriptEnabled(true);
-            webView.loadUrl("http://www.snumap.com/mobiletutorial");
+            webView.loadUrl("http://www.snumap.com/mobiletutorial.html");
 
             goBack.setOnClickListener(new View.OnClickListener() {
                 @Override

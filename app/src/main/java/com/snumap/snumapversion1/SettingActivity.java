@@ -38,6 +38,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     Button howToUseBtn;
     Button faQbtn;
     Button forTellbtn;
+    Button plzAskbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +135,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         howToUseBtn = (Button) findViewById(R.id.howToUseBtn);
         faQbtn = (Button) findViewById(R.id.faQbtn);
         forTellbtn = (Button) findViewById(R.id.forTellbtn);
+        plzAskbtn = (Button) findViewById(R.id.plzAskbtn);
 
         howToUseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,8 +148,16 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         faQbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent FAQintent = new Intent(SettingActivity.this, FaQActivity.class);
-                startActivity(FAQintent);
+                Intent askintent = new Intent(SettingActivity.this, AskActivity.class);
+                startActivity(askintent);
+            }
+        });
+
+        plzAskbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent faqintent = new Intent(SettingActivity.this, FaQActivity.class);
+                startActivity(faqintent);
             }
         });
 
