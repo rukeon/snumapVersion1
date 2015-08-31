@@ -21,6 +21,13 @@
                 android:src="@drawable/topbar"
                 android:scaleType="centerCrop"/>
 
+            <ImageView
+                android:id="@+id/goBackST"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/backarrow"
+                />
+
             <Button
                 android:id="@+id/SetMenuBtn"
                 android:layout_width="50dp"

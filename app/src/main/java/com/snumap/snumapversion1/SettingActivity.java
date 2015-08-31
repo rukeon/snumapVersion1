@@ -100,7 +100,15 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                         startActivity(goToMainIntent);
                         break;
 
+                    case "길찾기":
+                        drawerLayoutSet.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
+                        Intent goToSearchRoute =
+                                new Intent(SettingActivity.this, SearchRouteActivity.class);
+                        startActivity(goToSearchRoute);
+                        break;
+
                     case "즐겨찾기":
+                        drawerLayoutSet.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
                         Intent goToFavIntent =
                                 new Intent(SettingActivity.this, FavoriteActivity.class);
                         startActivity(goToFavIntent);

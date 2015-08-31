@@ -122,6 +122,13 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                         startActivity(goToMainIntent);
                         break;
 
+                    case "길찾기":
+                        drawerLayoutFav.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
+                        Intent goToSearchRoute =
+                                new Intent(FavoriteActivity.this, SearchRouteActivity.class);
+                        startActivity(goToSearchRoute);
+                        break;
+
                     case "즐겨찾기":
                         drawerLayoutFav.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
                         break;
