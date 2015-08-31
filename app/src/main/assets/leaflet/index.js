@@ -227,6 +227,7 @@ var moveLeaflet = function(value) {
 
        var longitude = value[1];
        var latitude = value[0];
+       var name = value[2];
        var img = [
            5001,  // original width of image
            2501   // original height of image
@@ -234,6 +235,8 @@ var moveLeaflet = function(value) {
        var rc = new L.RasterCoords(window.map, img);
        searchMarker = new L.marker(rc.unproject([latitude,longitude]));
        window.map.addLayer(searchMarker);
+       if ( name != null && name.length != 0 )
+           searchMarker.bindPopup(name).openPopup();
        window.map.panTo(rc.unproject([latitude,longitude]));
        // window.map.setZoom(3);
        window.map.setView(rc.unproject([latitude,longitude]), 3);

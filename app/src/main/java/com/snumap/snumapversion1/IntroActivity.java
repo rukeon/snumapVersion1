@@ -1,6 +1,6 @@
 package com.snumap.snumapversion1;
 
-import android.content.Context;
+import  android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -61,6 +61,7 @@ public class IntroActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             todayStatus = statusModel.getStatus();
+                            Log.e("todayStatus", String.valueOf(todayStatus));
 
                             if (!todayStatus) {
                                 long checkTime = System.currentTimeMillis();
@@ -73,7 +74,7 @@ public class IntroActivity extends AppCompatActivity {
                             } else {
                                 Intent goToError = new Intent(IntroActivity.this, ErrorActivity.class);
                                 startActivity(goToError);
-//                                Log.e("todayStatus", String.valueOf(todayStatus));
+                                Log.e("todayStatus", String.valueOf(todayStatus));
                             }
                         } catch (Exception e) {
                             Log.e("ex", e.toString());

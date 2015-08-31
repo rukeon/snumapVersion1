@@ -260,6 +260,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                String number = result.getNumber();
                 final String latitude = result.getLatitude();
                 final String longitude = result.getLongitude();
+                final String buildingName = result.get_id();
                 hideKeyboard();
 
                 search_result.add(0, result);
@@ -270,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         // TODO Auto-generated method stub
                         super.onPageFinished(view, url);
 
-                        view.loadUrl("javascript:moveLeaflet([" + latitude + "," + longitude + "])();");
+                        view.loadUrl("javascript:moveLeaflet([" + latitude + "," + longitude + "," + "\"" + buildingName + "\"" + "])();");
                     }
                 });
                 //load webpage from assets
@@ -346,6 +347,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             final String latitude = result.getLatitude();
             final String longitude = result.getLongitude();
 
+            final String buildingName1 = result.get_id();
+
             search_result.add(0, result);
 
             mapView.setWebViewClient(new WebViewClient() {
@@ -353,7 +356,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onPageFinished(WebView view, String url) {
                     // TODO Auto-generated method stub
                     super.onPageFinished(view, url);
-                    view.loadUrl("javascript:moveLeaflet([" + latitude + "," + longitude + "])();");
+                    view.loadUrl("javascript:moveLeaflet([" + latitude + "," + longitude + "," + "\"" + buildingName1 + "\"" + "])();");
                 }
             });
             //load webpage from assets
@@ -493,7 +496,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             kakaoTalkLinkMessageBuilder.addText(search);
             kakaoTalkLinkMessageBuilder.addImage(imgSrcLink, 269, 95);
-            kakaoTalkLinkMessageBuilder.addWebButton("지도에서 위치 확인하기", "http://snumap.com/dynamic.html?idx=" + index);
+            kakaoTalkLinkMessageBuilder.addWebButton("지도에서 위치 확인하기", "http://snumap.com/index.html?idx=" + index);
+            Log.e("카카오톡 링크 관련", "http://snumap.com/dynamic.html?idx=" + index);
             final String linkContents = kakaoTalkLinkMessageBuilder.build();
             kakaoLink.sendMessage(linkContents, this);
         } catch (KakaoParameterException e) {
