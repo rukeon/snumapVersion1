@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:orientation="horizontal"
     android:paddingTop="5dp"
     android:paddingBottom="5dp">
@@ -11,34 +11,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_marginLeft="8dp"
         android:scaleType="centerCrop"
         android:clickable="true"/>
 
     <RelativeLayout
         android:id="@+id/itemRelativeDR"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp">
 
-        <TextView
-            android:id="@+id/txtFromDR"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/idForRightof"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:textSize="20dp"
-            android:gravity="center"/>
+            android:layout_alignParentLeft="true">
+            <TextView
+                android:id="@+id/txtFromDR"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18dp"
+                android:gravity="center"/>
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/arrowDR"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@id/txtFromDR" />
+            android:layout_toRightOf="@id/idForRightof" />
 
-        <TextView
-            android:id="@+id/txtToDR"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:gravity="center"
-            android:layout_toRightOf="@id/arrowDR"/>
+            android:layout_toRightOf="@id/arrowDR">
+            <TextView
+                android:id="@+id/txtToDR"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18dp"
+                android:gravity="center"
+                />
+        </RelativeLayout>
+
     </RelativeLayout>
 </LinearLayout>
