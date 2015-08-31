@@ -4,12 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SearchRouteActivity extends AppCompatActivity {
+public class SearchRouteActivity extends AppCompatActivity implements View.OnClickListener {
     // SharedPreference 처리
     List<UserSearch> userSearch;
     ListUserSearchPref complexObject;
@@ -60,10 +65,114 @@ public class SearchRouteActivity extends AppCompatActivity {
     String from;
     String to;
 
+    // 드르워 레이아웃 처리
+    DrawerLayout drawerLayoutSR;
+    View drawerViewSR;
+    ListView drawerListSR;
+    Button SRMenuBtn;
+
+    // 슬라이딩 메뉴 아랫부분 클릭 시 close되게
+    FrameLayout closeSR;
+
+    private String[] menu_name = {
+            "건물검색", "길찾기", "즐겨찾기", "설정"};
+    private  Integer image_id[] = {R.drawable.ic_search,
+            R.drawable.ic_directions_walk_menu,
+            R.drawable.ic_archive,
+            R.drawable.ic_settings };
+
+    // 메뉴 버튼 클릭 시 어댑터
+    Customlistadapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_route);
+
+        // Drawerlayout 부분
+        drawerLayoutSR = (DrawerLayout)findViewById(R.id.drawer_layoutSR);
+        drawerViewSR = (View)findViewById(R.id.drawerSR);
+
+        SRMenuBtn = (Button) findViewById(R.id.btn_menuSR);
+        SRMenuBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                if (SRMenuBtn.isActivated())
+                {
+                    drawerLayoutSR.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
+                } else {
+                    drawerLayoutSR.openDrawer(drawerViewSR);
+                }
+                SRMenuBtn.setActivated(!SRMenuBtn.isActivated());
+            }
+        });
+
+        drawerLayoutSR.setDrawerListener(myDrawerListener);
+        drawerLayoutSR.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+        closeSR = (FrameLayout) findViewById(R.id.frameForCloseSR);
+
+        drawerViewSR.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+                return true;
+            }
+        });
+
+        adapter = new Customlistadapter(this);
+
+        for(int i = 0; i < menu_name.length; ++i)
+        {
+            adapter.addItem(image_id[i], menu_name[i]);
+        }
+
+        drawerListSR = (ListView)findViewById(R.id.drawerlistSR);
+        drawerListSR.setAdapter(adapter);
+
+        // 건물검색, 길찾기, 즐겨찾기, 설정의 항목들 클릭 시 발생 이벤트 처리
+        drawerListSR.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent,
+                                    View view, int position, long id) {
+                SlidingListData data = adapter.getmSlidingListData().get(position);
+                String activity = data.getmActivity().toString();
+
+                switch (activity) {
+                    case "건물검색":
+                        drawerLayoutSR.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
+                        Intent goToMainIntent =
+                                new Intent(SearchRouteActivity.this, MainActivity.class);
+                        goToMainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(goToMainIntent);
+                        break;
+
+                    case "길찾기":
+                        drawerLayoutSR.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
+                         break;
+
+                    case "즐겨찾기":
+                        drawerLayoutSR.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
+                        Intent goToFavorite =
+                                new Intent(SearchRouteActivity.this, FavoriteActivity.class);
+                        startActivity(goToFavorite);
+                        break;
+
+                    case "설정":
+                        drawerLayoutSR.closeDrawer(Gravity.RIGHT); // 먼저 슬라이딩 메뉴부터 지우자
+                        Intent goToSettingIntent =
+                                new Intent(SearchRouteActivity.this, SettingActivity.class);
+                        startActivity(goToSettingIntent);
+                        break;
+                }
+            }
+        });
+
+        // 드로워 레이아웃 옆 색깔 투명으로 만들기
+        drawerLayoutSR.setScrimColor(getResources().getColor(android.R.color.transparent));
+        closeSR.setOnClickListener(this);
 
         mIntent = getIntent();
         Bundle b = mIntent.getExtras();
@@ -319,4 +428,28 @@ public class SearchRouteActivity extends AppCompatActivity {
         InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.frameForCloseSR:
+                drawerLayoutSR.closeDrawer(Gravity.RIGHT);
+                break;
+        }
+    }
+
+    DrawerLayout.DrawerListener myDrawerListener = new DrawerLayout.DrawerListener(){
+        @Override
+        public void onDrawerClosed(View drawerView) {
+        }
+        @Override
+        public void onDrawerOpened(View drawerView) {
+        }
+        @Override
+        public void onDrawerSlide(View drawerView, float slideOffset) {
+        }
+        @Override
+        public void onDrawerStateChanged(int newState) {
+        }
+    };
 }
