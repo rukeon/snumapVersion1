@@ -47,6 +47,9 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     private void statusCheck(String date) {
+        final long Time;
+        Time = System.currentTimeMillis();
+
         StatusService statusService = new StatusService();
         Status dayInfo = new Status(date);
 
@@ -60,13 +63,15 @@ public class IntroActivity extends AppCompatActivity {
                             todayStatus = statusModel.getStatus();
 
                             if (!todayStatus) {
-                                Log.e("??", "??????????????????????????????????");
-                                // Advance to the next screen.
+                                long checkTime = System.currentTimeMillis();
+                                while (checkTime <= Time + 1500)
+                                {
+                                    checkTime = System.currentTimeMillis();
+                                }
                                 startActivity(new Intent(IntroActivity.this,
-                                        MainActivity.class));//}
+                                        MainActivity.class));
                             } else {
-                                Log.e("에러2222222222222", String.valueOf(todayStatus));
-                                Log.e("에러!!!!!!!!!!!!", "여기!!!!!!!!!!1");
+                                Log.e("todayStatus", String.valueOf(todayStatus));
                             }
                         } catch (Exception e) {
                             Log.e("ex", e.toString());

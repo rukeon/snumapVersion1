@@ -106,8 +106,10 @@
 
                             <ImageView
                                 android:id="@+id/currentPostion"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginLeft="3dp"
                                 android:src="@drawable/currentposbutton"
                                 android:clickable="true" />
                         </RelativeLayout>
@@ -129,7 +131,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="horizontal"
-                                    android:visibility="gone"
+                                    android:visibility="visible"
                                     >
 
                                     <LinearLayout
@@ -137,15 +139,16 @@
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
                                         android:layout_weight="1"
-                                        android:background="@drawable/border">
+                                        android:background="@drawable/menu_start">
                                         <RelativeLayout
                                             android:layout_width="match_parent"
-                                            android:layout_height="match_parent">
+                                            android:layout_height="match_parent"
+                                            >
                                             <TextView
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:textColor="#ffffff"
-                                                android:text="출발지로"
+                                                android:text=""
                                                 android:layout_centerInParent="true"
                                                 />
                                         </RelativeLayout>
@@ -156,7 +159,7 @@
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
                                         android:layout_weight="1"
-                                        android:background="@drawable/border">
+                                        android:background="@drawable/menu_finish">
                                         <RelativeLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent">
@@ -164,7 +167,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:textColor="#ffffff"
-                                                android:text="도착지로"
+                                                android:text=""
                                                 android:layout_centerInParent="true"
                                                 />
                                         </RelativeLayout>
@@ -175,7 +178,7 @@
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
                                         android:layout_weight="1"
-                                        android:background="@drawable/border">
+                                        android:background="@drawable/menu_favorite">
                                         <RelativeLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent">
@@ -183,7 +186,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:textColor="#ffffff"
-                                                android:text="즐겨찾기"
+                                                android:text=""
                                                 android:layout_centerInParent="true"
                                                 />
                                         </RelativeLayout>

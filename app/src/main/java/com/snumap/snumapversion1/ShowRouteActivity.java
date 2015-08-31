@@ -113,22 +113,44 @@ public class ShowRouteActivity extends AppCompatActivity {
                             latitude = routeModel.getLatitude();
                             longitude = routeModel.getLongitude();
 
-                            mapView.setWebViewClient(new WebViewClient() {
+                            mapView.post(new Runnable() {
                                 @Override
-                                public void onPageFinished(WebView view, String url) {
-                                    // TODO Auto-generated method stub
-                                    super.onPageFinished(view, url);
+                                public void run() {
+                                    mapView.setWebViewClient(new WebViewClient() {
+                                        @Override
+                                        public void onPageFinished(WebView view, String url) {
+                                            // TODO Auto-generated method stub
+                                            super.onPageFinished(view, url);
 
-                                    String lat = Arrays.toString(latitude);
-                                    String longitu = Arrays.toString(longitude);
+                                            String lat = Arrays.toString(latitude);
+                                            String longitu = Arrays.toString(longitude);
 
-                                    Log.e("도대체 뭐가 들어가는 게냐?" , "drawRoute(\"\" + lat + \"\\\",\\\"\" + longitu +  \"\")();");
+                                            Log.e("도대체 뭐가 들어가는 게냐?" , "drawRoute(\"\" + lat + \"\\\",\\\"\" + longitu +  \"\")();");
 
-                                    view.loadUrl("javascript:drawRoute(\"" + lat + "\",\"" + longitu +  "\")();");
+                                            view.loadUrl("javascript:drawRoute(\"" + lat + "\",\"" + longitu +  "\")();");
+                                        }
+                                    });
+                                    //load webpage from assets
+                                    mapView.loadUrl(URL);
                                 }
                             });
-                            //load webpage from assets
-                            mapView.loadUrl(URL);
+
+//                            mapView.setWebViewClient(new WebViewClient() {
+//                                @Override
+//                                public void onPageFinished(WebView view, String url) {
+//                                    // TODO Auto-generated method stub
+//                                    super.onPageFinished(view, url);
+//
+//                                    String lat = Arrays.toString(latitude);
+//                                    String longitu = Arrays.toString(longitude);
+//
+//                                    Log.e("도대체 뭐가 들어가는 게냐?" , "drawRoute(\"\" + lat + \"\\\",\\\"\" + longitu +  \"\")();");
+//
+//                                    view.loadUrl("javascript:drawRoute(\"" + lat + "\",\"" + longitu +  "\")();");
+//                                }
+//                            });
+//                            //load webpage from assets
+//                            mapView.loadUrl(URL);
                         } catch (Exception e) {
                         Log.e("exxxxxx", e.toString());
                     } finally {
