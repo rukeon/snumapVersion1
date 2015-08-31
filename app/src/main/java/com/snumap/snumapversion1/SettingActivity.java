@@ -10,9 +10,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
+    ImageView goBackST;
 
     // 드르워 레이아웃 처리
     DrawerLayout drawerLayoutSet;
@@ -35,11 +37,14 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     Button howToUseBtn;
     Button faQbtn;
+    Button forTellbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+        goBackST = (ImageView) findViewById(R.id.goBackST);
 
         // Drawerlayout 부분
         drawerLayoutSet = (DrawerLayout)findViewById(R.id.drawer_layoutSet);
@@ -128,6 +133,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         // 본 내용 시작 부분
         howToUseBtn = (Button) findViewById(R.id.howToUseBtn);
         faQbtn = (Button) findViewById(R.id.faQbtn);
+        forTellbtn = (Button) findViewById(R.id.forTellbtn);
 
         howToUseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +148,21 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             public void onClick(View v) {
                 Intent FAQintent = new Intent(SettingActivity.this, FaQActivity.class);
                 startActivity(FAQintent);
+            }
+        });
+
+        forTellbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Alarmintent = new Intent(SettingActivity.this, AlarmActivity.class);
+                startActivity(Alarmintent);
+            }
+        });
+
+        goBackST.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }

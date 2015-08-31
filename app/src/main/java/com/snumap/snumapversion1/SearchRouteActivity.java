@@ -84,10 +84,14 @@ public class SearchRouteActivity extends AppCompatActivity implements View.OnCli
     // 메뉴 버튼 클릭 시 어댑터
     Customlistadapter adapter;
 
+    ImageView goBackSearch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_route);
+
+        goBackSearch = (ImageView) findViewById(R.id.goBackSearch);
 
         // Drawerlayout 부분
         drawerLayoutSR = (DrawerLayout)findViewById(R.id.drawer_layoutSR);
@@ -402,6 +406,13 @@ public class SearchRouteActivity extends AppCompatActivity implements View.OnCli
                     myAutoComplete.setText(to);
                     isAutoCompleteExist1 = true;
                 }
+            }
+        });
+
+        goBackSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }

@@ -37,14 +37,12 @@
             android:name=".MainActivity"
             android:label=".MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"
-            >
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".FavoriteActivity"
             android:label="@string/title_activity_favorite"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".SettingActivity"
@@ -84,6 +82,10 @@
         <activity
             android:name=".DeleteRecentSearchActivity"
             android:label="@string/title_activity_delete_recent_search" >
+        </activity>
+        <activity
+            android:name=".AlarmActivity"
+            android:label="@string/title_activity_alarm" >
         </activity>
     </application>
 

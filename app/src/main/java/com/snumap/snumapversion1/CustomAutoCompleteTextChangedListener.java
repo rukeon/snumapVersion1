@@ -6,6 +6,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import java.util.Collections;
+
 /**
  * Created by rukeon01 on 2015-07-15.
  */
@@ -61,6 +63,10 @@ public class CustomAutoCompleteTextChangedListener implements TextWatcher {
                 }
             }
         }
+//
+//        // 추가한 코드
+        Collections.sort(mainActivity.item);
+
         // update the adapater
         mainActivity.myAdapter.notifyDataSetChanged();
         mainActivity.myAdapter = new ArrayAdapter<String>(mainActivity, R.layout.autocomplete_list_row, mainActivity.item);

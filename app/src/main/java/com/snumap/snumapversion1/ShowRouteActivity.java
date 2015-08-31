@@ -15,6 +15,7 @@ import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,8 @@ import retrofit.client.Response;
 public class ShowRouteActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String URL = "file:///android_asset/leaflet/index.html";
     WebView mapView;
+
+    ImageView goBackSR;
 
     Intent mIntent;
     String from;
@@ -69,6 +72,8 @@ public class ShowRouteActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_route);
+
+        goBackSR = (ImageView) findViewById(R.id.goBackSR);
 
         // Drawerlayout 부분
         drawerLayoutFR = (DrawerLayout)findViewById(R.id.drawer_layoutFR);
@@ -190,6 +195,13 @@ public class ShowRouteActivity extends AppCompatActivity implements View.OnClick
         totxt.setText(forTotxt);
 
         getData(idxFrom, idxTo);
+
+        goBackSR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void getData(String from, String to){

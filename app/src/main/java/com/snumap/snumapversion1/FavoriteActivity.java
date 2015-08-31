@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +25,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class FavoriteActivity extends AppCompatActivity implements View.OnClickListener {
+    ImageView goBackFav;
+
     ComplexPreferences complexPreferences;
     ListUserPref complexObject;
 
@@ -61,6 +64,8 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
+
+        goBackFav = (ImageView) findViewById(R.id.goBackFav);
 
         // Drawerlayout 부분
         drawerLayoutFav = (DrawerLayout)findViewById(R.id.drawer_layoutFav);
@@ -195,8 +200,7 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
-                if (list_menu.getVisibility() == View.VISIBLE)
-                {
+                if (list_menu.getVisibility() == View.VISIBLE) {
                     // do nothing
                 } else {
                     Intent goToMainintent = new Intent(FavoriteActivity.this, MainActivity.class);
@@ -530,6 +534,13 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                         }
                     });
                 }
+            }
+        });
+
+        goBackFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }

@@ -13,8 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-public class HowToUseActivity extends AppCompatActivity {
-
+public class AlarmActivity extends AppCompatActivity {
     private WebView webView;
     private ImageView goBack;
 
@@ -38,16 +37,16 @@ public class HowToUseActivity extends AppCompatActivity {
                     .show();
             finish();//액티비티 종료
         } else {
-            setContentView(R.layout.activity_how_to_use);
+            setContentView(R.layout.activity_alarm);
 
             progress = (ProgressBar) findViewById(R.id.web_progress);
 
-            webView = (WebView) findViewById(R.id.webView);
+            webView = (WebView) findViewById(R.id.webViewAlarm);
             goBack = (ImageView) findViewById(R.id.goBack);
 
             webView.setWebViewClient(new myWebClient());
             webView.getSettings().setJavaScriptEnabled(true);
-            webView.loadUrl("http://www.snumap.com/mobiletutorial");
+            webView.loadUrl("http://www.snumap.com/mobilenotice.html");
 
             goBack.setOnClickListener(new View.OnClickListener() {
                 @Override
