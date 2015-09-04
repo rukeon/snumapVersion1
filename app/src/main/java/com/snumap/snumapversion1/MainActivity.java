@@ -309,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         if (checkLat < 0 || checkLat > 5000 || checkLong > 2500 || checkLong < 0)
                         {
-                            Toast.makeText(MainActivity.this, "지도에 표시할 수 없는 위치입니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "지도를 벗어난 위치입니다.", Toast.LENGTH_SHORT).show();
                             return;
                         }
 

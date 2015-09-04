@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class MyDatabase extends SQLiteAssetHelper {
     private static final String DATABASE_NAME = "Data.db";
-    private static final int DATABASE_VERSION = 12;
+    private static final int DATABASE_VERSION = 13;
 
     // table details
     public String tableName = "build";
@@ -61,9 +61,8 @@ public class MyDatabase extends SQLiteAssetHelper {
 
         cursor.close();
         db.close();
-
         // return the list of records
-        Log.e("크기다!!!!!!!!", Integer.toString(recordsList.size()));
+//        Log.e("크기다!!!!!!!!", Integer.toString(recordsList.size()));
         return recordsList;
     }
 
