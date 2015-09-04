@@ -51,7 +51,7 @@ public class SRCustomAutoCompleteTextChangedListener2 implements TextWatcher {
         }
 
         // query the database based on the user input
-        searchActivity.item2 = searchActivity.db.read(userInput.toString());
+        searchActivity.item2 = searchActivity.db.readExceptSlang(userInput.toString());
 
         if (searchActivity.item2.size() == 0 ) {
             Log.e("여기로 들어오나?", "real?");

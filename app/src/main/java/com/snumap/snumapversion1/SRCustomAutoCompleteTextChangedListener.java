@@ -3,7 +3,6 @@ package com.snumap.snumapversion1;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
@@ -51,10 +50,9 @@ public class SRCustomAutoCompleteTextChangedListener implements TextWatcher {
         }
 
         // query the database based on the user input
-        searchActivity.item = searchActivity.db.read(userInput.toString());
+        searchActivity.item = searchActivity.db.readExceptSlang(userInput.toString());
 
         if (searchActivity.item.size() == 0 ) {
-            Log.e("여기로 들어오나?", "real?");
             for (int i = 0; i < searchActivity.searchList.size(); i++) {
                 String searchData = searchActivity.searchList.get(i).toString();
                 String keyWord = userInput.toString();

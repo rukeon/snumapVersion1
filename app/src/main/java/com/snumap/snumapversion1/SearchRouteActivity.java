@@ -418,7 +418,7 @@ public class SearchRouteActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void addList() {
-        searchList = db.insertBuildingName();
+        searchList = db.insertBuildingNameExceptSlang();
     }
 
     private void init(){

@@ -66,6 +66,51 @@ public class MyDatabase extends SQLiteAssetHelper {
         return recordsList;
     }
 
+    // Read records related to the search term
+    public ArrayList<String> readExceptSlang(String searchTerm) {
+        // select query
+        String sql = "";
+        sql += "SELECT * FROM " + tableName;
+        sql += " WHERE " + fieldObjectId + " LIKE '%" + searchTerm + "%'";
+        sql += " ORDER BY " + fieldObjectId + " ASC";
+        sql += " LIMIT 0,5";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // execute the query
+        Cursor cursor = db.rawQuery(sql, null);
+
+        ArrayList<String> recordsList = new ArrayList<String>();
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            int x = 0;
+            do {
+                // int productId = Integer.parseInt(cursor.getString(cursor.getColumnIndex(fieldProductId)));
+                String objectName = cursor.getString(cursor.getColumnIndex(fieldObjectId));
+                String forExceptNumber = cursor.getString(cursor.getColumnIndex(fieldObjectNumber));
+
+                Log.e("슬랭 체크", forExceptNumber);
+
+                if (forExceptNumber.equals("slang"))
+                    continue;
+
+                // add to list
+                recordsList.add(x, objectName);
+                x++;
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        for(int j=0; j < recordsList.size(); ++j)
+            Log.e("recordList의 원소양상: ", recordsList.get(j).toString());
+        // return the list of records
+//        Log.e("크기다!!!!!!!!", Integer.toString(recordsList.size()));
+        return recordsList;
+    }
+
     public DataSet selectDatabyId(String index){
         String sql = "select * from " + tableName+ " where _id = ?; ";
 
@@ -107,7 +152,35 @@ public class MyDatabase extends SQLiteAssetHelper {
         if(cursor.moveToFirst()){
             do {
                 result.add(cursor.getString(cursor.getColumnIndex(fieldObjectId)));
-//            Log.e("과연 있을까?", cursor.getString(cursor.getColumnIndex(fieldObjectId)));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return result;
+    }
+
+    public ArrayList<String> insertBuildingNameExceptSlang()
+    {
+        ArrayList<String> result = new ArrayList<String>();
+
+        String sql = "select _id, number from " + tableName + "; ";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // execute the query
+        Cursor cursor = db.rawQuery(sql, new String[] {});
+
+        // result(Cursor 객체)가 비어 있으면 false 리턴
+        if(cursor.moveToFirst()){
+            do {
+                String forExceptNumber = cursor.getString(cursor.getColumnIndex(fieldObjectNumber));
+
+                if (forExceptNumber.equals("slang"))
+                    continue;
+
+                result.add(cursor.getString(cursor.getColumnIndex(fieldObjectId)));
             } while (cursor.moveToNext());
         }
 
