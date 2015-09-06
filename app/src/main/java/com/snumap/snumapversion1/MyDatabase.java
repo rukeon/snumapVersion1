@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class MyDatabase extends SQLiteAssetHelper {
     private static final String DATABASE_NAME = "Data.db";
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 14;
 
     // table details
     public String tableName = "build";

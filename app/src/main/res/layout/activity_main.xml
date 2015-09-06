@@ -116,13 +116,13 @@
 
                         <RelativeLayout
                             android:layout_width="fill_parent"
-                            android:layout_height="fill_parent" >
-
+                            android:layout_height="fill_parent"
+                            >
                             <!-- Bottom bar -->
                             <RelativeLayout
                                 android:layout_width="fill_parent"
                                 android:layout_alignParentBottom="true"
-                                android:layout_height="70dip"
+                                android:layout_height="60dp"
                                 android:alpha="0.9"
                                 android:orientation="horizontal" >
 
@@ -137,84 +137,57 @@
                                     <LinearLayout
                                         android:id="@+id/start_position"
                                         android:layout_width="0dp"
-                                        android:layout_height="match_parent"
+                                        android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:background="@drawable/menu_start">
                                         <RelativeLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             >
-                                            <TextView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:textColor="#ffffff"
-                                                android:text=""
-                                                android:layout_centerInParent="true"
-                                                />
+
                                         </RelativeLayout>
                                     </LinearLayout>
 
                                     <LinearLayout
                                         android:id="@+id/finish_position"
                                         android:layout_width="0dp"
-                                        android:layout_height="match_parent"
+                                        android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:background="@drawable/menu_finish">
                                         <RelativeLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent">
-                                            <TextView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:textColor="#ffffff"
-                                                android:text=""
-                                                android:layout_centerInParent="true"
-                                                />
+
                                         </RelativeLayout>
                                     </LinearLayout>
 
                                     <LinearLayout
                                         android:id="@+id/favorite"
                                         android:layout_width="0dp"
-                                        android:layout_height="match_parent"
+                                        android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:background="@drawable/menu_favorite">
                                         <RelativeLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent">
-                                            <TextView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:textColor="#ffffff"
-                                                android:text=""
-                                                android:layout_centerInParent="true"
-                                                />
+
                                         </RelativeLayout>
                                     </LinearLayout>
 
                                     <LinearLayout
                                         android:id="@+id/link"
                                         android:layout_width="0dp"
-                                        android:layout_height="match_parent"
+                                        android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:background="@drawable/menu_share">
                                         <RelativeLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent">
-                                            <TextView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:textColor="#ffffff"
-                                                android:text=""
-                                                android:layout_centerInParent="true"
-                                                />
+
                                         </RelativeLayout>
                                     </LinearLayout>
 
                                 </LinearLayout>
-
-
-
                             </RelativeLayout>
                         </RelativeLayout>
 

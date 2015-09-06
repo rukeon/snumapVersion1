@@ -436,6 +436,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 은어처리... 언젠가 지워야 할 부분
+                String isSlang = search_result.get(0).getNumber();
+                if (isSlang.equals("slang"))
+                {
+                    Toast.makeText(MainActivity.this, "해당 검색어에는 아직 지원되지 않는 기능입니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 // 아래의 4개 메뉴바 제거
                 LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
                 list_menu.setVisibility(View.GONE);
@@ -446,11 +454,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent goToSearchRoute = new Intent(MainActivity.this, SearchRouteActivity.class);
                 goToSearchRoute.putExtra("FROM", start_name);
                 startActivity(goToSearchRoute);
-//                // 텍스트가 7글자 이상일 경우 ..붙이기
-//                if (start_name.length() > 7)
-//                {
-//                    start_name = start_name.substring(0,6) + "..";
-//                }
             }
         });
 
@@ -459,6 +462,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         end.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 은어처리... 언젠가 지워야 할 부분
+                String isSlang = search_result.get(0).getNumber();
+                if (isSlang.equals("slang"))
+                {
+                    Toast.makeText(MainActivity.this, "해당 검색어에는 아직 지원되지 않는 기능입니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 // 아래의 4개 메뉴바 제거
                 LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
                 list_menu.setVisibility(View.GONE);
@@ -477,6 +488,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 은어처리... 언젠가 지워야 할 부분
+                String isSlang = search_result.get(0).getNumber();
+                if (isSlang.equals("slang"))
+                {
+                    Toast.makeText(MainActivity.this, "해당 검색어에는 아직 지원되지 않는 기능입니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 // 아래의 4개 메뉴바 제거
                 LinearLayout list_menu = (LinearLayout) findViewById(R.id.list_menu);
                 list_menu.setVisibility(View.GONE);
